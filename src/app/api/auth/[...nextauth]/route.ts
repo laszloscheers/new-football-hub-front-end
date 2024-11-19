@@ -63,9 +63,11 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log("JWT", token, user);
       return { ...token, ...user };
     },
     async session({ session, token }: { session: any; token: any }) {
+      console.log("SESSION", session, token);
       session.user = token as any;
       return session;
     },
@@ -105,9 +107,7 @@ const handler = NextAuth({
             });
           }
         }
-        return true;
       }
-
       return true;
     },
   },
@@ -115,6 +115,7 @@ const handler = NextAuth({
     signIn: "/login",
     error: "/error",
   },
+  debug: true,
 });
 
 export { handler as GET, handler as POST };
