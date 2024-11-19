@@ -10,7 +10,6 @@ const handler = NextAuth({
     Github({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
-      authorization: {},
     }),
     Google({
       clientId: process.env.GOOGLE_ID as string,
@@ -45,7 +44,7 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: any; user: any }) {
+    async jwt({ token, user }) {
       if (token.email && !token.sub) {
         const actualUser = await GetUserByEmail(token.email);
         token.name = actualUser.name;
