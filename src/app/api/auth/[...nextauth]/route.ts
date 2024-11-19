@@ -44,8 +44,12 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (token.email && !token.sub) {
+        const actualUser = await GetUserByEmail(token.email);
+        token.name = actualUser.name;
+        token.surname = actualUser.surname;
+        token.role = actualUser.role;
         token.isOath = false;
       } else {
         token.isOath = true;
@@ -54,7 +58,12 @@ const handler = NextAuth({
     },
     async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
-        session.user = token as any;
+        session.user.name = token.name;
+        session.user.surname = token.surname;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.token = token.token;
+        session.user.isOath = token.isOath;
       }
       return session;
     },

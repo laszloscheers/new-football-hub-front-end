@@ -12,7 +12,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!isApiAuthRoute && !isAuthRoute && !publicRoutes) {
+  if (!isApiAuthRoute && !isAuthRoute && !publicRoutes && !apiAuthPrefix) {
     return NextResponse.redirect(url);
   }
 
