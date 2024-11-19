@@ -34,13 +34,20 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      console.log("JWT", token, user);
+    async jwt({ token, user }: { token: any; user: any }) {
+      if (token.email && !token.sub) {
+        const actualUser = await GetUserByEmail(token.email);
+        token.name = actualUser.name;
+        token.surname = actualUser.surname;
+        token.role = actualUser.role;
+        token.isOath = false;
+      } else {
+        token.isOath = true;
+      }
       return { ...token, ...user };
     },
     async session({ session, token }: { session: any; token: any }) {
-      console.log("SESSION", session, token);
-      session.user = token as any;
+      session.user = token;
       return session;
     },
     async signIn({ account, profile }) {
