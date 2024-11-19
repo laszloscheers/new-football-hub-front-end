@@ -8,7 +8,7 @@ export default async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   url.pathname = "/login";
 
-  if (isApiAuthRoute || isAuthRoute || publicRoutes) {
+  if (apiAuthPrefix || isApiAuthRoute || isAuthRoute || publicRoutes) {
     return NextResponse.next();
   }
 
