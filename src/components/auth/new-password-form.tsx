@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ import { FormSuccess } from "@/components/form-success";
 
 
 
-export const NewPasswordForm = () => {
+const NewPasswordFormContent = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -119,3 +119,9 @@ export const NewPasswordForm = () => {
     )
   }
 }
+
+export const NewPasswordForm = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <NewPasswordFormContent />
+  </Suspense>
+);
