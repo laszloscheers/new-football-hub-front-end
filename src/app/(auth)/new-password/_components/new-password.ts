@@ -113,13 +113,15 @@ export const newPassword = async (
           if (deletedUserPassword.error) {
             return { error: deletedUserPassword.message };
           }
-          return { success: "Password reset" };
+          return {
+            email: existingUser.email,
+            success: "Password successfully updated",
+          };
         } else {
-          const text = await resDeleteUserToken.text();
-          throw new Error("Unexpected response format");
+          return { error: "Something went wrong" };
         }
       } else {
-        throw new Error("Unexpected response format");
+        return { error: "Something went wrong" };
       }
     } else {
       throw new Error("Unexpected response format");
