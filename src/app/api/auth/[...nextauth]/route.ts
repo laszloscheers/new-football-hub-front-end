@@ -58,6 +58,9 @@ const handler = NextAuth({
         session.user.role = token.role;
         session.user.token = token.token;
         session.user.isOath = token.isOath;
+      } else {
+        session.user.isOath = token.isOath;
+        session.user = token;
       }
       return session;
     },

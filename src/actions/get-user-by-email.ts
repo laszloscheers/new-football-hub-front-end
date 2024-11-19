@@ -15,7 +15,7 @@ export const GetUserByEmail = async (email: string) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${adminToken}`,
+          Authorization: `Bearer ${adminToken.token}`,
         },
       }
     );
