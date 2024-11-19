@@ -51,7 +51,14 @@ const handler = NextAuth({
       return { ...token, ...user };
     },
     async session({ session, token }: { session: any; token: any }) {
-      session.user = token;
+      if (session.user && !token.sub) {
+        session.user.name = token.name;
+        session.user.surname = token.surname;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.token = token.token;
+        session.user.isOath = token.isOath;
+      }
       return session;
     },
     async signIn({ account, profile }) {
