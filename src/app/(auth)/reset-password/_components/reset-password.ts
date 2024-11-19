@@ -11,7 +11,6 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
   const validatedFields = ResetSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    console.error("Validation failed:", validatedFields.error);
     return { error: "Invalid email" };
   }
 
@@ -21,7 +20,6 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
     const user = await GetUserByEmail(email);
 
     if (user.error) {
-      console.error("User not found:", user.error);
       return { error: user.error };
     }
 
@@ -48,14 +46,12 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
     const contentType = resResetPasswordToken.headers.get("content-type");
     if (!resResetPasswordToken.ok) {
       const errorData = await resResetPasswordToken.text();
-      console.error("Failed to generate reset password token:", errorData);
       throw new Error(errorData);
     }
 
     if (contentType && contentType.includes("application/json")) {
       const resetPasswordToken = await resResetPasswordToken.json();
       if (resetPasswordToken.error) {
-        console.error("Reset password token error:", resetPasswordToken.error);
         throw new Error(resetPasswordToken.error);
       }
 
@@ -64,11 +60,9 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
       return { success: "Reset password email sent" };
     } else {
       const text = await resResetPasswordToken.text();
-      console.error("Unexpected response format:", text);
       throw new Error("Unexpected response format");
     }
   } catch (error) {
-    console.error("Error during password reset:", error);
     return { error: "Something went wrong" };
   }
 };
