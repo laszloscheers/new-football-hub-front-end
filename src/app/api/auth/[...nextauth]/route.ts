@@ -1,4 +1,5 @@
 import { GetUserByEmail } from "@/actions/get-user-by-email";
+import { SignInAction } from "@/actions/sign-in-action";
 import { SignUpAction } from "@/actions/sign-up-action";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -22,42 +23,13 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/login`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password,
-              }),
-            }
-          );
-
-          const contentType = res.headers.get("content-type");
-          if (!res.ok) {
-            const errorData = await res.text();
-            console.error("Login failed:", errorData);
-            throw new Error(errorData);
-          }
-
-          if (contentType && contentType.includes("application/json")) {
-            const user = await res.json();
-            if (user.error) {
-              console.error("User error:", user.error);
-              throw new Error(user.error);
-            }
+        if (credentials) {
+          const user = await SignInAction(credentials);
+          if (user) {
             return user;
-          } else {
-            const text = await res.text();
-            console.error("Unexpected response format:", text);
-            throw new Error(text);
           }
-        } catch (error) {
-          console.error("Error during authorization:", error);
-          return null;
         }
+        return null;
       },
     }),
   ],
@@ -71,45 +43,45 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
-    // async signIn({ account, profile }) {
-    //   if (account?.provider === "google") {
-    //     // check if user is in your database
-    //     if (profile?.email) {
-    //       const userInDB = await GetUserByEmail(
-    //         `google_account_${profile?.email}`
-    //       );
-    //       if (userInDB.error) {
-    //         // add your user in DB here with profile data (profile.email, profile.name)
-    //         await SignUpAction({
-    //           name: profile?.name ?? "",
-    //           surname: profile?.name ?? "",
-    //           email: `google_account_${profile?.email}`,
-    //           password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
-    //         });
-    //       }
-    //     }
-    //     return true;
-    //   }
+    async signIn({ account, profile }) {
+      if (account?.provider === "google") {
+        // check if user is in your database
+        if (profile?.email) {
+          const userInDB = await GetUserByEmail(
+            `google_account_${profile?.email}`
+          );
+          if (userInDB.error) {
+            // add your user in DB here with profile data (profile.email, profile.name)
+            await SignUpAction({
+              name: profile?.name ?? "",
+              surname: profile?.name ?? "",
+              email: `google_account_${profile?.email}`,
+              password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
+            });
+          }
+        }
+        return true;
+      }
 
-    //   if (account?.provider === "github") {
-    //     // check if user is in your database
-    //     if (profile?.email) {
-    //       const userInDB = await GetUserByEmail(
-    //         `github_account_${profile?.email}`
-    //       );
-    //       if (userInDB.error) {
-    //         // add your user in DB here with profile data (profile.email, profile.name)
-    //         await SignUpAction({
-    //           name: profile?.email ?? "",
-    //           surname: profile?.email ?? "",
-    //           email: `github_account_${profile?.email}`,
-    //           password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
-    //         });
-    //       }
-    //     }
-    //   }
-    //   return true;
-    // },
+      if (account?.provider === "github") {
+        // check if user is in your database
+        if (profile?.email) {
+          const userInDB = await GetUserByEmail(
+            `github_account_${profile?.email}`
+          );
+          if (userInDB.error) {
+            // add your user in DB here with profile data (profile.email, profile.name)
+            await SignUpAction({
+              name: profile?.email ?? "",
+              surname: profile?.email ?? "",
+              email: `github_account_${profile?.email}`,
+              password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
+            });
+          }
+        }
+      }
+      return true;
+    },
   },
   pages: {
     signIn: "/login",

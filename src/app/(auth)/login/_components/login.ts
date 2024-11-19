@@ -1,4 +1,3 @@
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "next-auth/react";
 import * as z from "zod";

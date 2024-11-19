@@ -9,18 +9,25 @@ export const AdminActions = async (
   values: z.infer<typeof AdminPageSchema>,
   email: string
 ) => {
-  if (email) {
-    const user = await GetUserByEmail(email);
+  try {
+    if (email) {
+      const user = await GetUserByEmail(email);
 
-    if (user.error) {
-      return { error: user.error };
+      if (user.error) {
+        return { error: user.error };
+      }
+
+      const updatedUser = await UpdateUser(values as any, user.id);
+
+      if (updatedUser.error) {
+        return { error: updatedUser.error };
+      }
+
+      return { success: "User Updated" };
+    } else {
+      throw new Error("Email is required");
     }
-    const updateUser = await UpdateUser(values as any, user.id);
-
-    if (updateUser.error) {
-      return { error: updateUser.error };
-    }
-
-    return { success: "User updated" };
+  } catch (error) {
+    return { error: "Something went wrong" };
   }
 };

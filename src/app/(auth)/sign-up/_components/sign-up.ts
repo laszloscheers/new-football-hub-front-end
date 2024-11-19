@@ -35,7 +35,6 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
 
     return { success: "Sign up successful" };
   } catch (error) {
-    console.error("Sign up error:", error);
     return { error: "An unexpected error occurred" };
   }
 };

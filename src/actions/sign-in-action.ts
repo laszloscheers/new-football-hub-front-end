@@ -1,4 +1,9 @@
-export const SignInAsAdministrator = async () => {
+"use server";
+
+export const SignInAction = async (credentials: {
+  email: string;
+  password: string;
+}) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/login`,
@@ -6,8 +11,8 @@ export const SignInAsAdministrator = async () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: process.env.ADMIN_EMAIL,
-          password: process.env.ADMIN_PASSWORD,
+          email: credentials?.email,
+          password: credentials?.password,
         }),
       }
     );
@@ -20,19 +25,19 @@ export const SignInAsAdministrator = async () => {
     }
 
     if (contentType && contentType.includes("application/json")) {
-      const adminSessionToken = await res.json();
-      if (adminSessionToken.error) {
-        console.error("User error:", adminSessionToken.error);
-        throw new Error(adminSessionToken.error);
+      const user = await res.json();
+      if (user.error) {
+        console.error("User error:", user.error);
+        throw new Error(user.error);
       }
-      return adminSessionToken.token;
+      return user;
     } else {
       const text = await res.text();
       console.error("Unexpected response format:", text);
-      throw new Error("Unexpected response format");
+      throw new Error(text);
     }
   } catch (error) {
-    console.error("Error during admin sign-in:", error);
-    return { error: "Something went wrong" };
+    console.error("Error during authorization:", error);
+    return null;
   }
 };
