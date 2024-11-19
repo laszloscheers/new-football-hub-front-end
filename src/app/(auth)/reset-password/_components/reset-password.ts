@@ -25,7 +25,6 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
 
     const adminToken = await SignInAsAdministrator();
     if (adminToken.error) {
-      console.error("Admin sign-in failed:", adminToken.error);
       throw new Error(adminToken.error);
     }
 
@@ -38,7 +37,7 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${adminToken.token}`,
+          Authorization: `Bearer ${adminToken}`,
         },
       }
     );
@@ -59,7 +58,6 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
 
       return { success: "Reset password email sent" };
     } else {
-      const text = await resResetPasswordToken.text();
       throw new Error("Unexpected response format");
     }
   } catch (error) {

@@ -33,7 +33,7 @@ export const newPassword = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${adminToken.token}`,
+          Authorization: `Bearer ${adminToken}`,
         },
       }
     );
@@ -69,7 +69,7 @@ export const newPassword = async (
           }),
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${adminToken.token}`,
+            Authorization: `Bearer ${adminToken}`,
           },
         }
       );
@@ -93,7 +93,7 @@ export const newPassword = async (
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${adminToken.token}`,
+              Authorization: `Bearer ${adminToken}`,
             },
           }
         );
@@ -113,7 +113,7 @@ export const newPassword = async (
           if (deletedUserPassword.error) {
             return { error: deletedUserPassword.message };
           }
-          return { success: "Password reset", email: existingUser.email };
+          return { success: "Password reset" };
         } else {
           const text = await resDeleteUserToken.text();
           throw new Error("Unexpected response format");

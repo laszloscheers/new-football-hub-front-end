@@ -15,7 +15,7 @@ export const GetUserByEmail = async (email: string) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${adminToken.token}`,
+          Authorization: `Bearer ${adminToken}`,
         },
       }
     );
@@ -33,7 +33,6 @@ export const GetUserByEmail = async (email: string) => {
       }
       return existingUser;
     } else {
-      const text = await resUser.text();
       throw new Error("Unexpected response format");
     }
   } catch (error) {
