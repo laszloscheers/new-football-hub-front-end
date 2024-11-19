@@ -12,23 +12,24 @@ export const SignInAsAdministrator = async () => {
       }
     );
 
-    const contentType = res.headers.get("content-type");
     if (!res.ok) {
       const errorData = await res.text();
       throw new Error(errorData);
     }
 
+    const contentType = res.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
       const adminSessionToken = await res.json();
       if (adminSessionToken.error) {
+        console.error("Admin session error:", adminSessionToken.error);
         throw new Error(adminSessionToken.error);
       }
       return adminSessionToken.token;
     } else {
+      const text = await res.text();
       throw new Error("Unexpected response format");
     }
   } catch (error) {
-    console.error("Error during admin sign-in:", error);
     return { error: "Something went wrong" };
   }
 };

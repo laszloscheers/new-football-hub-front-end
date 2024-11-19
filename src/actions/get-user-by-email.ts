@@ -12,9 +12,9 @@ export const GetUserByEmail = async (email: string) => {
     const resUser = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/email`,
       {
-        method: "GET",
+        method: "POST",
         body: JSON.stringify({
-          email,
+          email: email,
         }),
         headers: {
           "Content-Type": "application/json",

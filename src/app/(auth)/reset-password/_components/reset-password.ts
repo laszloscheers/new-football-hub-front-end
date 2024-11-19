@@ -15,14 +15,12 @@ export const resetPassword = async (values: z.infer<typeof ResetSchema>) => {
   }
 
   const { email } = validatedFields.data;
-
   try {
     const user = await GetUserByEmail(email);
 
     if (user.error) {
       return { error: user.error };
     }
-
     const adminToken = await SignInAsAdministrator();
     if (adminToken.error) {
       throw new Error(adminToken.error);

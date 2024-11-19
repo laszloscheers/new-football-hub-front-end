@@ -10,7 +10,6 @@ interface RoleGateProps {
 
 export const RoleGate = ({ children, allowedRoles }: RoleGateProps) => {
   const { data: session, status } = useSession();
-   console.log(session);
   const router = useRouter();
 
   if (status === "loading") return <p>Loading...</p>;
