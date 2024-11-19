@@ -36,11 +36,15 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }: { token: any; user: any }) {
       if (token.email && !token.sub) {
-        const actualUser = await GetUserByEmail(token.email);
-        token.name = actualUser.name;
-        token.surname = actualUser.surname;
-        token.role = actualUser.role;
-        token.isOath = false;
+        try {
+          const actualUser = await GetUserByEmail(token.email);
+          token.name = actualUser.name;
+          token.surname = actualUser.surname;
+          token.role = actualUser.role;
+          token.isOath = false;
+        } catch (error) {
+          throw new Error("Error in jwt callback");
+        }
       } else {
         token.isOath = true;
       }
