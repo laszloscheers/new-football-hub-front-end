@@ -30,12 +30,10 @@ export const SignUpAction = async (user: {
     if (contentType && contentType.includes("application/json")) {
       const newUser = await resUser.json();
       if (newUser.error) {
-        console.error("User error:", newUser.error);
         throw new Error(newUser.error);
       }
       return { success: "User signed up" };
     } else {
-      const text = await resUser.text();
       throw new Error("Unexpected response format");
     }
   } catch (error) {

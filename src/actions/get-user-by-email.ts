@@ -10,9 +10,12 @@ export const GetUserByEmail = async (email: string) => {
     }
 
     const resUser = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/email/${email}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/email`,
       {
         method: "GET",
+        body: JSON.stringify({
+          email,
+        }),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${adminToken}`,
