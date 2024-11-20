@@ -1,3 +1,5 @@
+"use server";
+
 export const SignInAsAdministrator = async () => {
   try {
     const res = await fetch(

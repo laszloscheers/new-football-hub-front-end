@@ -39,7 +39,7 @@ export default function RootLayout({
           <SessionAuthProvider>
             <Navbar />
             {children}
-            <Toaster />
+            <Toaster/>
           </SessionAuthProvider>
       </ThemeProvider>
       </body>

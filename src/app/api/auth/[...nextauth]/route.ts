@@ -68,15 +68,13 @@ const handler = NextAuth({
       if (account?.provider === "google") {
         // check if user is in your database
         if (profile?.email) {
-          const userInDB = await GetUserByEmail(
-            `google_account_${profile?.email}`
-          );
+          const userInDB = await GetUserByEmail(profile?.email);
           if (userInDB.error) {
             // add your user in DB here with profile data (profile.email, profile.name)
             await SignUpAction({
               name: profile?.name ?? "",
               surname: profile?.name ?? "",
-              email: `google_account_${profile?.email}`,
+              email: profile?.email,
               password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
             });
           }
@@ -87,15 +85,13 @@ const handler = NextAuth({
       if (account?.provider === "github") {
         // check if user is in your database
         if (profile?.email) {
-          const userInDB = await GetUserByEmail(
-            `github_account_${profile?.email}`
-          );
+          const userInDB = await GetUserByEmail(profile?.email);
           if (userInDB.error) {
             // add your user in DB here with profile data (profile.email, profile.name)
             await SignUpAction({
               name: profile?.email ?? "",
               surname: profile?.email ?? "",
-              email: `github_account_${profile?.email}`,
+              email: profile?.email,
               password: process.env.GOOGLE_AND_GITHUB_ACCOUNTS_PASSWORD ?? "",
             });
           }

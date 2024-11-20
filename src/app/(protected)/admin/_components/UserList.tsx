@@ -22,6 +22,7 @@ import AdminSearchBar from "./AdminSerachBar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CircleUser } from "lucide-react";
 import { EditButton } from "./EditButton";
+import { NewUserButton } from "./NewUserButton";
 
 const UsersList = async ({ query }: { query: string}) => {
 
@@ -40,9 +41,16 @@ const UsersList = async ({ query }: { query: string}) => {
   return (
     <>
       <div className="flex flex-col">
-        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px]">
+        <header className="flex h-14 items-center justify-around gap-4 border-b bg-muted/40 px-4 lg:h-[60px]">
           <div className="w-full flex-1">
             <AdminSearchBar />
+          </div>
+          <div className="flex w-full flex-1 justify-end pr-10">
+            <NewUserButton mode="modal" asChild >
+              <Button size="lg">
+                New User
+              </Button>
+            </NewUserButton>
           </div>
           <div className="lg:hidden">
             <DropdownMenu>
@@ -69,6 +77,10 @@ const UsersList = async ({ query }: { query: string}) => {
           )}
 
           <Card>
+            <CardHeader className="px-7">
+              <CardTitle>USers</CardTitle>
+              <CardDescription>Create, edit, or delete users.</CardDescription>
+            </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>

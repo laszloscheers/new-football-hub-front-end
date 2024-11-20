@@ -20,16 +20,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { AdminActions } from "@/actions/admin-page-action";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ExtendedUser } from "@/types/next-auth";
-import { DeleteUser } from "@/actions/delete-user";
 import { toast } from "sonner";
+import { SignUpAction } from "@/actions/sign-up-action";
 
 
 
-export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
+export const NewUserButtonForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
@@ -38,41 +36,22 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
   const form = useForm<z.infer<typeof AdminPageSchema>>({
     resolver: zodResolver(AdminPageSchema),
       defaultValues: {
-        name: user?.name || undefined,
-        surname: user.surname || undefined,
-        email: user.email || undefined,
-        role: user.role || undefined,
-        password: undefined,
+        name: "",
+        surname: "",
+        email: "",
+        role: "user",
+        password: ""
     }
   });
   
   const onSubmit = (values: z.infer<typeof AdminPageSchema>) => {
     startTransition(() => {
-      AdminActions({
-        ...values,
-      }, user.email || "")
-        .then((data: { error?: string; success?: string }) => {
-          if(data?.error) {
-            setError(data.error);
-            toast.error(data.error);
-          } 
-          if (data?.success) {
-            router.refresh()
-            setSuccess(data.success);
-            toast.success(data.success);
-          }
-        })
-        .catch((error: any) => {
-          setError(`Failed to update user data: ${error}`);
-          toast.error(error);
-        });
-    });
-    (document.querySelector("#dialog-close > button") as HTMLButtonElement).click();
-  };
-
-  const deleteUser = () => {
-    startTransition(() => {
-      DeleteUser(Number(user.id))
+      SignUpAction({
+        name: values.name || "",
+        surname: values.surname || "",
+        email: values.email || "",
+        password: values.password || ""
+      })
         .then((data) => {
           if(data?.error) {
             setError(data.error);
@@ -85,18 +64,18 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
           }
         })
         .catch((error) => {
-          setError(`Failed to update user data: ${error}`);
+          setError(`Failed to create user data: ${error}`);
           toast.error(error);
         });
     });
     (document.querySelector("#dialog-close > button") as HTMLButtonElement).click();
-  }
+  };
 
   return (
     <Card className="w-[400px] shadow-md">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">
-          Edit User
+          Create an User
         </p>
       </CardHeader>
       <CardContent>
@@ -142,12 +121,24 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
                   </FormItem>
                 )}
               />
-              <p className="text-sm font-medium">Email</p>
-              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                <p className="md:text-sm font-medium text-gray-600">
-                {user?.email}
-                </p>
-              </div>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field}
+                        placeholder="Your email"
+                        disabled={isPending}
+
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="role"
@@ -208,27 +199,6 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="pt-8">
-      <Card className="border-2 border-red-500">
-      <CardHeader className="bg-red-500 border-red-500 text-red-50 p-4 flex items-center gap-2">
-        <CardTitle className="mr-auto">Danger zone</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 space-y-2">
-        <p>
-          This will permanently delete the user from the system.
-        </p>
-        <Button
-          disabled={isPending}
-          variant="destructive"
-          className="w-full"
-          onClick={deleteUser}
-        >
-          Delete User
-        </Button>
-      </CardContent>
-    </Card>
-
-      </CardFooter>
     </Card>
   )
 }

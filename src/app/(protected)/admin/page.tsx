@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  Home,
   ListIcon,
   Users,
 } from "lucide-react";

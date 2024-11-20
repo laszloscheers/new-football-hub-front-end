@@ -8,8 +8,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { EditButtonForm } from "./EditButtonForm";
 import { ExtendedUser } from "@/types/next-auth";
+import { NewUserButtonForm } from "./NewUserForm";
 
 interface LoginButtonProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ interface LoginButtonProps {
   asChild?: boolean;
   user?: ExtendedUser;
 };
-export const EditButton = ({ children, asChild, user }: LoginButtonProps) => {
+export const NewUserButton = ({ children, asChild }: LoginButtonProps) => {
   return (
     <Dialog >
       <DialogTrigger asChild={asChild}>
@@ -32,7 +32,7 @@ export const EditButton = ({ children, asChild, user }: LoginButtonProps) => {
         </DialogDescription>
       </VisuallyHidden.Root>
       <DialogContent className="p-0 w-auto bg-transparent border-none"  id="dialog-close">
-        {user && <EditButtonForm user={user} />}
+        <NewUserButtonForm />
       </DialogContent>
     </Dialog>
   )

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { AdminPageSchema } from "@/schemas";
+import { UserPageSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -20,68 +20,73 @@ import {
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { AdminActions } from "@/actions/admin-page-action";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ExtendedUser } from "@/types/next-auth";
 import { DeleteUser } from "@/actions/delete-user";
 import { toast } from "sonner";
+import { signOut, useSession } from "next-auth/react";
+import { UpdateUserByEmail } from "@/actions/update-user-by-email";
+import { GetUserByEmail } from "@/actions/get-user-by-email";
 
 
 
 export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
   const [isPending, startTransition] = useTransition();
+  const { data: session, update } = useSession();
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
-  const router = useRouter();
 
-  const form = useForm<z.infer<typeof AdminPageSchema>>({
-    resolver: zodResolver(AdminPageSchema),
+  const form = useForm<z.infer<typeof UserPageSchema>>({
+    resolver: zodResolver(UserPageSchema),
       defaultValues: {
-        name: user?.name || undefined,
-        surname: user.surname || undefined,
-        email: user.email || undefined,
-        role: user.role || undefined,
+        name: session?.user?.name || undefined,
+        surname: session?.user.surname || undefined,
+        email: session?.user.email || undefined,
         password: undefined,
+        newPassword: undefined,
     }
   });
   
-  const onSubmit = (values: z.infer<typeof AdminPageSchema>) => {
+  const onSubmit = (values: z.infer<typeof UserPageSchema>) => {
     startTransition(() => {
-      AdminActions({
+      UpdateUserByEmail({
         ...values,
-      }, user.email || "")
-        .then((data: { error?: string; success?: string }) => {
+      }, session?.user.email || "")
+        .then((data) => {
           if(data?.error) {
             setError(data.error);
             toast.error(data.error);
-          } 
+          }
           if (data?.success) {
-            router.refresh()
+            update();
             setSuccess(data.success);
             toast.success(data.success);
           }
         })
-        .catch((error: any) => {
+        .catch((error) => {
           setError(`Failed to update user data: ${error}`);
           toast.error(error);
         });
     });
-    (document.querySelector("#dialog-close > button") as HTMLButtonElement).click();
   };
 
   const deleteUser = () => {
-    startTransition(() => {
-      DeleteUser(Number(user.id))
+    startTransition(async () => {
+      if (!user?.email) {
+        setError("User email is undefined");
+        return;
+      }
+      const fetchedUser = await GetUserByEmail(user.email);
+      DeleteUser(Number(fetchedUser.id))
         .then((data) => {
           if(data?.error) {
             setError(data.error);
             toast.error(data.error);
           } 
           if (data?.success) {
-            router.refresh()
             setSuccess(data.success);
             toast.success(data.success);
+            signOut();
           }
         })
         .catch((error) => {
@@ -93,12 +98,7 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
   }
 
   return (
-    <Card className="w-[400px] shadow-md">
-      <CardHeader>
-        <p className="text-2xl font-semibold text-center">
-          Edit User
-        </p>
-      </CardHeader>
+    <Card className="w-[400px] shadow-md pt-12">
       <CardContent>
         <Form {...form}>
           <form
@@ -150,36 +150,25 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
               </div>
               <FormField
                 control={form.control}
-                name="role"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select
-                      disabled={isPending}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      value={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select role" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="admin">
-                            Admin
-                          </SelectItem>
-                          <SelectItem value="user">
-                            User
-                          </SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <FormLabel>Old Password</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field}
+                        placeholder="********"
+                        disabled={isPending}
+
+                      />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="password"
+                name="newPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>New Password</FormLabel>
@@ -195,6 +184,7 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
                   </FormItem>
                 )}
               />
+
             </div>
             <FormError message={error as any} />
             <FormSuccess message={success as any} />
@@ -208,10 +198,10 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="pt-8">
+      <CardFooter className="pt-2">
       <Card className="border-2 border-red-500">
-      <CardHeader className="bg-red-500 border-red-500 text-red-50 p-4 flex items-center gap-2">
-        <CardTitle className="mr-auto">Danger zone</CardTitle>
+      <CardHeader className=" border-red-500 border-b-2 text-red-50 p-4 flex items-center gap-2">
+        <CardTitle className="text-red-600 mr-auto">Danger zone!</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-2">
         <p>

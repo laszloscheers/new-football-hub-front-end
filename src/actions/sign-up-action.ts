@@ -1,3 +1,5 @@
+"use server";
+
 export const SignUpAction = async (user: {
   name: string;
   surname: string;
@@ -21,20 +23,10 @@ export const SignUpAction = async (user: {
       }
     );
 
-    const contentType = resUser.headers.get("content-type");
-    if (!resUser.ok) {
-      const errorData = await resUser.text();
-      throw new Error(errorData);
-    }
-
-    if (contentType && contentType.includes("application/json")) {
-      const newUser = await resUser.json();
-      if (newUser.error) {
-        throw new Error(newUser.error);
-      }
+    if (resUser.status === 201) {
       return { success: "User signed up" };
     } else {
-      throw new Error("Unexpected response format");
+      throw new Error("Something went wrong");
     }
   } catch (error) {
     return { error: "Something went wrong" };
