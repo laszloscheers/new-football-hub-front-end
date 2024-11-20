@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-export default function UsersList() {
+const UsersList = () => {
   return (
     <Card>
       <CardHeader className="px-7">
@@ -172,3 +172,5 @@ export default function UsersList() {
     </Card>
   )
 }
+
+export default  UsersList;
