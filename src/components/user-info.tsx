@@ -51,7 +51,3 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
     </Card>
   )
 }
-
-function useCurrentUserRole() {
-  throw new Error("Function not implemented.");
-}

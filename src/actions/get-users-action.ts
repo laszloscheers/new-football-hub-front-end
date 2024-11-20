@@ -19,7 +19,6 @@ export const GetUsersAction = async () => {
         },
       }
     );
-
     const contentType = resUsers.headers.get("content-type");
     if (!resUsers.ok) {
       const errorData = await resUsers.text();
