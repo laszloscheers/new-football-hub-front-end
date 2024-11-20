@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 import ButtonAuth from "./ButtonAuth"
+import { ModeToggle } from "./ui/mode-toggle"
 
 export default function Component() {
   return (
@@ -60,6 +61,7 @@ export default function Component() {
           Admin
         </Link>
         <ButtonAuth />
+        <ModeToggle />
       </nav>
     </header>
   )

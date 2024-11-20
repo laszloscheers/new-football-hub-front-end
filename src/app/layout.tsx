@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import SessionAuthProvider from "@/context/SessionAuthProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,11 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <SessionAuthProvider>
-          <Navbar />
-          {children}
-          <Toaster />
-        </SessionAuthProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+          <SessionAuthProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </SessionAuthProvider>
+      </ThemeProvider>
       </body>
     </html>
   );
