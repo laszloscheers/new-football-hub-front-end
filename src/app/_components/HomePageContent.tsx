@@ -1,14 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from "next/image"
 import Link from 'next/link';
 import League from './_leagues/League';
 
+import { findLeagueCode } from '@/actions/footbal-api/helper-functions';
+import { mapAPIs } from '@/actions/footbal-api/api-array';
+
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  
+  const apiLength = Object.keys(mapAPIs).length;
   const leagues = [
     { name: "Premier League", logo: "/assets/images/premier-league-logo.webp" },
     { name: "La Liga", logo: "/assets/images/la-liga-logo.webp" },
@@ -18,6 +22,52 @@ const MainDataDisplay = () => {
     { name: "EFL Championship", logo: "/assets/images/efl-championship.webp" },
   ]
 
+  useEffect(() => {
+    const matches = fetchLeagueStandings("Premier League");
+  }, []);
+  
+  const fetchLeagueStandings = async (league: string) => {
+    //Makes API calls to different token keys until one is successful
+    const leagueCode = findLeagueCode(league);
+    var apiCall = false;
+    var i = 0;
+  
+    do {
+      try {
+        //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
+        const resGetLeagueStandings = await fetch(
+          mapAPIs[0].link + "competitions/" + leagueCode + "/standings",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Auth-Token": mapAPIs[0].token || "",
+              "access-control-allow-origin":
+                process.env.NEXT_PUBLIC_APP_URL || "",
+            },
+          }
+        );
+        console.log(resGetLeagueStandings);
+
+        if (resGetLeagueStandings.ok) {
+          const getLeagueStandings = await resGetLeagueStandings.json();
+          apiCall = false;
+          return getLeagueStandings;
+        }
+      } catch (error) {
+        //If it is the last error send the error "Too many requests"
+        if (i === apiLength - 1) {
+          return { error: "Too many requests, try again later" };
+        } else {
+          //If an error is catch stops the loop
+          apiCall = true;
+          i++;
+        }
+      }
+  
+      //Runs apiLength times because that's the number of keys that we have
+    } while (apiCall && i < apiLength);
+  };
 
   return (
   <section className=" px-4 py-8">

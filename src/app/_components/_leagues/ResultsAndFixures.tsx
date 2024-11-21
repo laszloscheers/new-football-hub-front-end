@@ -10,10 +10,10 @@ interface LeagueProps {
 
 const ResultsAndFixures = ({ league }: LeagueProps) => {
 
-  useEffect(() => {
-    const matches = fetchLeagueStandings(league.name);
-    console.log(matches);
-  }, []);
+  // useEffect(() => {
+  //   const matches = fetchLeagueStandings(league.name);
+  //   console.log(matches);
+  // }, []);
 
   return (
     <div className="space-y-4 w-full mt-4">
