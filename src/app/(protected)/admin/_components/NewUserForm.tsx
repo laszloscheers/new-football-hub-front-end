@@ -179,6 +179,7 @@ export const NewUserButtonForm = () => {
                         {...field}
                         placeholder="********"
                         disabled={isPending}
+                        type="password"
 
                       />
                     </FormControl>

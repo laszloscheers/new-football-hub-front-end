@@ -188,6 +188,7 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
                         {...field}
                         placeholder="********"
                         disabled={isPending}
+                        type="password"
 
                       />
                     </FormControl>

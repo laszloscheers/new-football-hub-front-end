@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table"
 import AdminSearchBar from "./AdminSerachBar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { CircleUser } from "lucide-react";
+import { CircleUser, Edit2, EditIcon } from "lucide-react";
 import { EditButton } from "./EditButton";
 import { NewUserButton } from "./NewUserButton";
 
@@ -45,14 +45,14 @@ const UsersList = async ({ query }: { query: string}) => {
           <div className="w-full flex-1">
             <AdminSearchBar />
           </div>
-          <div className="flex w-full flex-1 justify-end pr-10">
+          <div className="flex w-full flex-1 justify-end lg:pr-10">
             <NewUserButton mode="modal" asChild >
               <Button size="lg">
                 New User
               </Button>
             </NewUserButton>
           </div>
-          <div className="lg:hidden">
+          <div className="hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="secondary" size="icon" className="rounded-full">
@@ -110,8 +110,8 @@ const UsersList = async ({ query }: { query: string}) => {
                       </TableCell>
                       <TableCell className="text-right">
                         <EditButton mode="modal" asChild user={user} >
-                          <Button variant="secondary" size="lg">
-                            Edit
+                          <Button variant="outline" size="lg">
+                            <EditIcon className="mr-3"/>Edit
                           </Button>
                         </EditButton>
                       </TableCell>

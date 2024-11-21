@@ -1,31 +1,33 @@
-import { Poppins } from "next/font/google"
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
+"use client";
 
-const font = Poppins({
-  subsets: ["latin"],
-  weight: ["600"],
-})
+import Footer from '@/components/Footer';
+import HeroParticle from './_components/HeroParticle';
+import HeroSection from './_components/HeroSection';
+import MarqueeComponent from './_components/MarqueeComponent';
+import AddsSideBar from './_components/AddsSideBar';
+import ChatSideBar from './_components/ChatSideBar';
+import HomePageContent from './_components/HomePageContent';
 
 export default function Home() {
+
+
   return (
-    <main className="flex h-full flex-col items-center justify-center bg-sky-500">
-      <div className="space-y-6 text-center">
-        <h1 className={cn("text-6xl font-semibold text-white drop-shadow-md", font.className)}>
-          Auth
-        </h1>
-        <p className="text-white text-lg">
-          A simple authentication service.
-        </p>
-        <div>
-          <LoginButton mode="modal" asChild>
-            <Button variant="secondary" size="lg">
-              Sing in
-            </Button>
-          </LoginButton>
+    <div className='relative h-screen w-full'>
+      <div className='absolute top-0  h-screen w-full z-10'>
+        <div className='flex flex-row justify-between pt-12 px-48'>
+          <AddsSideBar />
+          <main>
+              <div className="max-w-3xl">
+                <HeroSection />
+                <HomePageContent />
+              </div>
+          </main>
+          <ChatSideBar />
         </div>
+        <MarqueeComponent />
+        <Footer />
       </div>
-    </main>
+      <HeroParticle />
+    </div>
   );
 }

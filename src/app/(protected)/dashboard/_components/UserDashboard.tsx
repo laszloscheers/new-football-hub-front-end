@@ -19,8 +19,8 @@ export default function UserDashboard() {
   return (
     <Card className="w-full">
       <CardHeader className="px-7">
-        <CardTitle>Orders</CardTitle>
-        <CardDescription>Recent orders from your store.</CardDescription>
+        <CardTitle>Leagues</CardTitle>
+        <CardDescription>All your pinned leagues.</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
