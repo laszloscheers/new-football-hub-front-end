@@ -17,7 +17,7 @@ const ResultsAndFixures = ({ league }: LeagueProps) => {
 
   return (
     <div className="space-y-4 w-full mt-4">
-      <h1>hello</h1>
+      <h1>hello2</h1>
     {/* {matches.map((match) => (
       <MatchCard match={match} key={match.id}/>
       ))} */}

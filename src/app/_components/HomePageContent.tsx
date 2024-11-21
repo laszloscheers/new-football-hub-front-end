@@ -56,6 +56,7 @@ const MainDataDisplay = () => {
         }
       } catch (error) {
         //If it is the last error send the error "Too many requests"
+        console.log(error);
         if (i === apiLength - 1) {
           return { error: "Too many requests, try again later" };
         } else {
