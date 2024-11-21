@@ -12,11 +12,12 @@ export const fetchLeagueStandings = async (league: string) => {
     try {
       //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
       const resGetLeagueStandings = await fetch(
-        "http://api.football-data.org/v4/areas/2267",
+        footballDataUrl + "competitions/" + league + "/standings",
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "X-Auth-Token": apiKeys[i] || "",
             "access-control-allow-origin":
               process.env.NEXT_PUBLIC_APP_URL + "*" || "",
           },

@@ -25,6 +25,7 @@ const MainDataDisplay = () => {
   useEffect(() => {
     const leagueCode = findLeagueCode("Premier League");
     console.log(leagueCode);
+    console.log(process.env.NEXT_PUBLIC_APP_URL + "*");
     if (leagueCode) {
       const leagues = fetchLeagueStandings(leagueCode);
       console.log(leagues);
