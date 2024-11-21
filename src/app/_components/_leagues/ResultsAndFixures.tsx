@@ -1,4 +1,4 @@
-import { fetchLeagueStandings } from "@/actions/footbal-api/fetch-league-standings"
+import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings"
 import { useEffect } from "react"
 
 interface LeagueProps {

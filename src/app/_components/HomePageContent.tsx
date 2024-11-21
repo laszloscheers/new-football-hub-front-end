@@ -6,13 +6,12 @@ import Image from "next/image"
 import Link from 'next/link';
 import League from './_leagues/League';
 
-import { findLeagueCode } from '@/actions/footbal-api/helper-functions';
-import { mapAPIs } from '@/actions/footbal-api/api-array';
+import { findLeagueCode } from '@/actions/football-api/helper-functions';
+import { apiKeys, footballDataUrl } from '@/actions/football-api/api-array';
 
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  
-  const apiLength = Object.keys(mapAPIs).length;
+
   const leagues = [
     { name: "Premier League", logo: "/assets/images/premier-league-logo.webp" },
     { name: "La Liga", logo: "/assets/images/la-liga-logo.webp" },
@@ -21,6 +20,7 @@ const MainDataDisplay = () => {
     { name: "Ligue 1", logo: "/assets/images/ligue-1-logo.webp" },
     { name: "EFL Championship", logo: "/assets/images/efl-championship.webp" },
   ]
+
   useEffect(() => {
     const leagueCode = findLeagueCode("Premier League");
     console.log(leagueCode);
@@ -33,7 +33,6 @@ const MainDataDisplay = () => {
   
   const fetchLeagueStandings = async (league: string) => {
     //Makes API calls to different token keys until one is successful
-    const leagueCode = findLeagueCode(league);
     var apiCall = false;
     var i = 0;
   
@@ -41,12 +40,12 @@ const MainDataDisplay = () => {
       try {
         //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
         const resGetLeagueStandings = await fetch(
-          mapAPIs[0].link + "competitions/" + leagueCode + "/standings",
+          footballDataUrl + "competitions/" + league + "/standings",
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "X-Auth-Token": mapAPIs[0].token || "",
+              "X-Auth-Token": apiKeys[0] || "",
               "access-control-allow-origin":
                 process.env.NEXT_PUBLIC_APP_URL || "",
             },
@@ -62,7 +61,7 @@ const MainDataDisplay = () => {
       } catch (error) {
         //If it is the last error send the error "Too many requests"
         console.log(error);
-        if (i === apiLength - 1) {
+        if (i === apiKeys.length - 1) {
           return { error: "Too many requests, try again later" };
         } else {
           //If an error is catch stops the loop
@@ -72,7 +71,7 @@ const MainDataDisplay = () => {
       }
   
       //Runs apiLength times because that's the number of keys that we have
-    } while (apiCall && i < apiLength);
+    } while (apiCall && i < apiKeys.length );
   };
 
   return (
