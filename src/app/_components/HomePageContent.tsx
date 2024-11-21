@@ -26,7 +26,8 @@ const MainDataDisplay = () => {
     const leagueCode = findLeagueCode("Premier League");
     console.log(leagueCode);
     if (leagueCode) {
-      fetchLeagueStandings(leagueCode);
+      const leagues = fetchLeagueStandings(leagueCode);
+      console.log(leagues);
     } else {
       console.error("League code not found");
     }

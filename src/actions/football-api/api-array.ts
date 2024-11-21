@@ -1,4 +1,3 @@
-"use server";
 // API info for the Football Data API -  use a HTTP header named "X-Auth-Token" with the token as the value.
 export const footballDataUrl = "https://api.football-data.org/v4/api/";
 
