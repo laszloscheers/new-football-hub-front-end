@@ -17,8 +17,7 @@ export const fetchLeagueStandings = async (league: string) => {
           headers: {
             "Content-Type": "application/json",
             "X-Auth-Token": apiKeys[i] || "",
-            "access-control-allow-origin":
-              process.env.NEXT_PUBLIC_APP_URL || "",
+            "access-control-allow-origin": "http://localhost",
           },
         }
       );
