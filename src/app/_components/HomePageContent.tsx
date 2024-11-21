@@ -8,6 +8,7 @@ import League from './_leagues/League';
 
 import { findLeagueCode } from '@/actions/football-api/helper-functions';
 import { apiKeys, footballDataUrl } from '@/actions/football-api/api-array';
+import { fetchLeagueStandings } from '@/actions/football-api/fetch-league-standings';
 
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -30,48 +31,6 @@ const MainDataDisplay = () => {
       console.error("League code not found");
     }
   }, []);
-  
-  const fetchLeagueStandings = async (league: string) => {
-    //Makes API calls to different token keys until one is successful
-    var apiCall = false;
-    var i = 0;
-  
-    do {
-      try {
-        console.log(apiKeys[i])
-        //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
-        const resGetLeagueStandings = await fetch(
-          footballDataUrl + "competitions/" + league + "/standings",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Auth-Token": apiKeys[i] || "",
-            },
-          }
-        );
-        console.log(resGetLeagueStandings);
-
-        if (resGetLeagueStandings.ok) {
-          const getLeagueStandings = await resGetLeagueStandings.json();
-          apiCall = false;
-          return getLeagueStandings;
-        }
-      } catch (error) {
-        //If it is the last error send the error "Too many requests"
-        console.log(error);
-        if (i === apiKeys.length - 1) {
-          return { error: "Too many requests, try again later" };
-        } else {
-          //If an error is catch stops the loop
-          apiCall = true;
-          i++;
-        }
-      }
-  
-      //Runs apiLength times because that's the number of keys that we have
-    } while (apiCall && i < apiKeys.length );
-  };
 
   return (
   <section className=" px-4 py-8">
