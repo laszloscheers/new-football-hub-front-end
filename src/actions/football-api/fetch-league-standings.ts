@@ -1,3 +1,4 @@
+"use server";
 import { apiKeys, footballDataUrl } from "./api-array";
 import { findLeagueCode } from "./helper-functions";
 
