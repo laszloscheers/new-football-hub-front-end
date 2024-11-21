@@ -21,9 +21,14 @@ const MainDataDisplay = () => {
     { name: "Ligue 1", logo: "/assets/images/ligue-1-logo.webp" },
     { name: "EFL Championship", logo: "/assets/images/efl-championship.webp" },
   ]
-
   useEffect(() => {
-    const matches = fetchLeagueStandings("Premier League");
+    const leagueCode = findLeagueCode("Premier League");
+    console.log(leagueCode);
+    if (leagueCode) {
+      fetchLeagueStandings(leagueCode);
+    } else {
+      console.error("League code not found");
+    }
   }, []);
   
   const fetchLeagueStandings = async (league: string) => {
