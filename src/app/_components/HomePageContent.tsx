@@ -38,6 +38,7 @@ const MainDataDisplay = () => {
   
     do {
       try {
+        console.log(apiKeys[i])
         //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
         const resGetLeagueStandings = await fetch(
           footballDataUrl + "competitions/" + league + "/standings",
@@ -45,9 +46,7 @@ const MainDataDisplay = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "X-Auth-Token": apiKeys[0] || "",
-              "access-control-allow-origin":
-                process.env.NEXT_PUBLIC_APP_URL || "",
+              "X-Auth-Token": apiKeys[i] || "",
             },
           }
         );
