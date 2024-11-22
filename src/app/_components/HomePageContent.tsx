@@ -8,7 +8,6 @@ import League from './_leagues/League';
 
 import { findLeagueCode } from '@/actions/football-api/helper-functions';
 import { apiKeys, footballDataUrl } from '@/actions/football-api/api-array';
-import { fetchLeagueStandings } from '@/actions/football-api/fetch-league-standings';
 
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -32,6 +31,7 @@ const MainDataDisplay = () => {
         console.error("League code not found");
       }
     }
+    console.log(fetchLeagueCode());
   }, []);
 
 // Combined Method - All Relevant League Data
