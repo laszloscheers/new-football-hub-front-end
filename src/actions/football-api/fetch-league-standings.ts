@@ -1,4 +1,3 @@
-"use server";
 import { apiKeys, footballDataUrl } from "./api-array";
 import { findLeagueCode } from "./helper-functions";
 
@@ -23,7 +22,6 @@ export const fetchLeagueStandings = async (league: string) => {
           },
         }
       );
-      return resGetLeagueStandings.json();
 
       if (resGetLeagueStandings.ok) {
         const getLeagueStandings = await resGetLeagueStandings.json();
@@ -32,9 +30,8 @@ export const fetchLeagueStandings = async (league: string) => {
       }
     } catch (error) {
       //If it is the last error send the error "Too many requests"
-      console.log(error);
       if (i === apiKeys.length - 1) {
-        return { error: error };
+        return { error: "Too many requests, try again later" };
       } else {
         //If an error is catch stops the loop
         apiCall = true;
