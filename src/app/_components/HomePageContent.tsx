@@ -23,15 +23,17 @@ const MainDataDisplay = () => {
   ]
 
   useEffect(() => {
-    const leagueCode = findLeagueCode("Premier League");
-    console.log(leagueCode);
-    console.log(process.env.NEXT_PUBLIC_APP_URL + "*");
-    if (leagueCode) {
-      const leagues = fetchLeagueStandings(leagueCode);
-      console.log(leagues);
-    } else {
-      console.error("League code not found");
+    const fetchLeagueCode = async () => {
+      const leagueCode = await findLeagueCode("Premier League");
+      if (leagueCode) {
+        const leagues = await fetchLeagueStandings(leagueCode);
+        return leagues;
+      } else {
+        console.error("League code not found");
+      }
     }
+    console.log(fetchLeagueCode());
+
   }, []);
 
   return (

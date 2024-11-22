@@ -23,7 +23,7 @@ export const fetchLeagueStandings = async (league: string) => {
           },
         }
       );
-      console.log(resGetLeagueStandings);
+      return resGetLeagueStandings.json();
 
       if (resGetLeagueStandings.ok) {
         const getLeagueStandings = await resGetLeagueStandings.json();
@@ -34,7 +34,7 @@ export const fetchLeagueStandings = async (league: string) => {
       //If it is the last error send the error "Too many requests"
       console.log(error);
       if (i === apiKeys.length - 1) {
-        return { error: "Too many requests, try again later" };
+        return { error: error };
       } else {
         //If an error is catch stops the loop
         apiCall = true;
