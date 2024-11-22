@@ -19,7 +19,7 @@ export const fetchLeagueStandings = async (league: string) => {
             "Content-Type": "application/json",
             "X-Auth-Token": apiKeys[i] || "",
             "access-control-allow-origin":
-              process.env.NEXT_PUBLIC_APP_URL + "*" || "",
+              process.env.NEXT_PUBLIC_APP_URL + "/*" || "",
           },
         }
       );
