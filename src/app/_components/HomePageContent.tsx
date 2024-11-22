@@ -48,10 +48,7 @@ const fetchLeagueStandings = async (league: string) => {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
             "X-Auth-Token": apiKeys[i] || "",
-            "access-control-allow-origin":
-              process.env.NEXT_PUBLIC_APP_URL + "/*" || "",
           },
         }
       );
