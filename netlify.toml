@@ -1,11 +1,10 @@
 [[redirects]]
-  from = "/football-api/*"
-  to = "http://api.football-data.org/v4/:splat"
+  from = "/football-api/"
+  to = "https://api.football-data.org/v4/"
   status = 200
   force = true
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
-force = false
+  headers = {X-From = "Netlify"}
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
