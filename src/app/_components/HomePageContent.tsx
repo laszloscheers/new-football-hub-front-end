@@ -8,7 +8,6 @@ import League from './_leagues/League';
 
 import { findLeagueCode } from '@/actions/football-api/helper-functions';
 import { apiKeys, footballDataUrl } from '@/actions/football-api/api-array';
-import { fetchLeagueStandings } from '@/actions/football-api/fetch-league-standings';
 
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -32,9 +31,10 @@ const MainDataDisplay = () => {
         console.error("League code not found");
       }
     }
-    console.log(fetchLeagueCode());
-  }, []);
+    console.log(fetchLeagueCode);
+    console.log(leagues);
 
+  }, []);
 // Combined Method - All Relevant League Data
 const fetchLeagueStandings = async (league: string) => {
   //Makes API calls to different token keys until one is successful
@@ -45,7 +45,7 @@ const fetchLeagueStandings = async (league: string) => {
     try {
       //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
       const resGetLeagueStandings = await fetch(
-        footballDataUrl + "competitions/" + league + "/standings",
+        "/football-api/" + "competitions/" + league + "/standings",
         {
           method: "GET",
           headers: {
