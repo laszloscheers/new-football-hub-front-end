@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator"
 import { StarFilledIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import ResultsAndFixures from "./ResultsAndFixures"
-import { findLeagueCode } from '@/actions/football-api/helper-functions';
+import { findLeagueCode } from '@/actions/football-api/leagues-clubs-players-ids';
 import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings"
 import { useEffect, useState } from "react"
 interface LeagueProps {
@@ -35,6 +35,8 @@ const League = ({ league }: LeagueProps) => {
   }, []);
 
   const date = new Date().getFullYear();
+  console.log("league data outside UseEffect");
+  console.log(leagueData);
 
   return (
       <>
