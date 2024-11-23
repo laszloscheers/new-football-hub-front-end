@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/api/*"
+  from = "/football-api/*"
   to = "https://api.football-data.org/v4/:splat"
   status = 200
   force = true

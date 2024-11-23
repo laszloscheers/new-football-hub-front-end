@@ -1,5 +1,5 @@
 // API info for the Football Data API -  use a HTTP header named "X-Auth-Token" with the token as the value.
-export const footballDataUrl = "https://api.football-data.org/v4/api/";
+export const footballDataUrl = "/football-api/";
 
 export const apiKeys = [
   process.env.REACT_APP_API_KEY_1,
