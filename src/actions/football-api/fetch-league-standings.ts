@@ -6,10 +6,9 @@ import { findLeagueCode } from "./helper-functions";
 // Combined Method - All Relevant League Data
 export const fetchLeagueStandings = async (league: string) => {
   //Makes API calls to different token keys until one is successful
-  const leagueCode = findLeagueCode(league);
-  const apiKeys = await getApiKeys();
   var apiCall = false;
   var i = 0;
+  const apiKeys = await getApiKeys();
 
   do {
     try {
