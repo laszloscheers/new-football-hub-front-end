@@ -46,6 +46,7 @@ const handler = NextAuth({
           throw new Error("Error in jwt callback");
         }
       } else {
+        token.role = "user";
         token.isOath = true;
       }
       return { ...token, ...user };
@@ -61,6 +62,7 @@ const handler = NextAuth({
       } else {
         session.user.isOath = token.isOath;
         session.user = token;
+        session.user.role = token.role;
       }
       return session;
     },
