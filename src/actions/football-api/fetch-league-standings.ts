@@ -1,9 +1,13 @@
-import { apiKeys, footballDataUrl } from "./api-array";
+"use server";
+
+import { getApiKeys } from "./api-array";
 import { findLeagueCode } from "./helper-functions";
 
 // Combined Method - All Relevant League Data
 export const fetchLeagueStandings = async (league: string) => {
   //Makes API calls to different token keys until one is successful
+  const leagueCode = findLeagueCode(league);
+  const apiKeys = await getApiKeys();
   var apiCall = false;
   var i = 0;
 
@@ -11,14 +15,14 @@ export const fetchLeagueStandings = async (league: string) => {
     try {
       //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
       const resGetLeagueStandings = await fetch(
-        footballDataUrl + "competitions/" + league + "/standings",
+        process.env.FOOTBALL_DATA_API_ROUTE +
+          "competitions/" +
+          leagueCode +
+          "/standings",
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
             "X-Auth-Token": apiKeys[i] || "",
-            "access-control-allow-origin":
-              process.env.NEXT_PUBLIC_APP_URL + "/*" || "",
           },
         }
       );
@@ -31,7 +35,7 @@ export const fetchLeagueStandings = async (league: string) => {
     } catch (error) {
       //If it is the last error send the error "Too many requests"
       if (i === apiKeys.length - 1) {
-        return { error: "Too many requests, try again later" };
+        return { error: "Too many requests, try again later" + error };
       } else {
         //If an error is catch stops the loop
         apiCall = true;

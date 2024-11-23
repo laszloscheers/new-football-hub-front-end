@@ -1,14 +1,33 @@
 // Stores the name of a league to get the code
 const leagues = [
-  { name: "premier league", code: "PL" },
-  { name: "premiership", code: "PL" },
-  { name: "bundesliga", code: "BL1" },
-  { name: "ligue 1", code: "FL1" },
-  { name: "ligue1", code: "FL1" },
-  { name: "serie a", code: "SA" },
-  { name: "primera division", code: "PD" },
-  { name: "la liga", code: "PD" },
-  { name: "efl championship", code: "ELC" },
+  {
+    name: "premier league",
+    code: "PL",
+    logo: "/assets/images/premier-league-logo.webp",
+  },
+  {
+    name: "premiership",
+    code: "PL",
+    logo: "/assets/images/premier-league-logo.webp",
+  },
+  {
+    name: "bundesliga",
+    code: "BL1",
+    logo: "/assets/images/bundesliga-logo.webp",
+  },
+  { name: "ligue 1", code: "FL1", logo: "/assets/images/ligue-1-logo.webp" },
+  { name: "serie a", code: "SA", logo: "/assets/images/serie-a-logo.webp" },
+  {
+    name: "primera division",
+    code: "PD",
+    logo: "/assets/images/la-liga-logo.webp",
+  },
+  { name: "la liga", code: "PD", logo: "/assets/images/la-liga-logo.webp" },
+  {
+    name: "efl championship",
+    code: "ELC",
+    logo: "/assets/images/efl-championship.webp",
+  },
 ];
 
 // Takes the name of a league and returns the search ID

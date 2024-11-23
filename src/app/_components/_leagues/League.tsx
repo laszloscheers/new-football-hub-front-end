@@ -4,6 +4,9 @@ import { Separator } from "@/components/ui/separator"
 import { StarFilledIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import ResultsAndFixures from "./ResultsAndFixures"
+import { findLeagueCode } from '@/actions/football-api/helper-functions';
+import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings"
+import { useEffect } from "react"
 interface LeagueProps {
   league: {
     name: string
@@ -12,6 +15,22 @@ interface LeagueProps {
 }
 const League = ({ league }: LeagueProps) => {
 
+
+
+  useEffect(() => {
+    
+    const fetchLeagueCode = async () => {
+      const leagueCode = await findLeagueCode(league.name);
+      if (leagueCode) {
+        const leagues = await fetchLeagueStandings(leagueCode);
+        return leagues;
+      } else {
+        console.error("League code not found");
+      }
+    }
+    console.log(fetchLeagueCode());
+
+  }, []);
 
   const date = new Date().getFullYear();
 

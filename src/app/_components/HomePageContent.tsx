@@ -6,9 +6,6 @@ import Image from "next/image"
 import Link from 'next/link';
 import League from './_leagues/League';
 
-import { findLeagueCode } from '@/actions/football-api/helper-functions';
-import { apiKeys, footballDataUrl } from '@/actions/football-api/api-array';
-
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -21,58 +18,6 @@ const MainDataDisplay = () => {
     { name: "EFL Championship", logo: "/assets/images/efl-championship.webp" },
   ]
 
-  useEffect(() => {
-    const fetchLeagueCode = async () => {
-      const leagueCode = await findLeagueCode("Premier League");
-      if (leagueCode) {
-        const leagues = await fetchLeagueStandings(leagueCode);
-        return leagues;
-      } else {
-        console.error("League code not found");
-      }
-    }
-    console.log(fetchLeagueCode);
-    console.log(leagues);
-
-  }, []);
-// Combined Method - All Relevant League Data
-const fetchLeagueStandings = async (league: string) => {
-  //Makes API calls to different token keys until one is successful
-  var apiCall = false;
-  var i = 0;
-
-  do {
-    try {
-      //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
-      const resGetLeagueStandings = await fetch(
-        "/football-api/" + "competitions/" + league + "/standings",
-        {
-          method: "GET",
-          headers: {
-            "X-Auth-Token": apiKeys[i] || "",
-          },
-        }
-      );
-      console.log(resGetLeagueStandings);
-      if (resGetLeagueStandings.ok) {
-        const getLeagueStandings = await resGetLeagueStandings.json();
-        apiCall = false;
-        return getLeagueStandings;
-      }
-    } catch (error) {
-      //If it is the last error send the error "Too many requests"
-      if (i === apiKeys.length - 1) {
-        return { error: "Too many requests, try again later" };
-      } else {
-        //If an error is catch stops the loop
-        apiCall = true;
-        i++;
-      }
-    }
-
-    //Runs apiLength times because that's the number of keys that we have
-  } while (apiCall && i < apiKeys.length);
-};
 
 
   return (
