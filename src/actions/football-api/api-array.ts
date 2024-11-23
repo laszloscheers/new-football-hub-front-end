@@ -1,4 +1,3 @@
-// api-array.ts
 "use server";
 
 // Function to get the API keys
