@@ -9,6 +9,15 @@ import League from './_leagues/League';
 const MainDataDisplay = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const leagues = [
+    { name: "Premier League", logo: "/assets/images/premier-league-logo.webp" },
+    { name: "La Liga", logo: "/assets/images/la-liga-logo.webp" },
+    { name: "Bundesliga", logo: "/assets/images/bundesliga-logo.webp" },
+    { name: "Serie A", logo: "/assets/images/serie-a-logo.webp" },
+    { name: "Ligue 1", logo: "/assets/images/ligue-1-logo.webp" },
+    { name: "EFL Championship", logo: "/assets/images/efl-championship.webp" },
+  ]
+
   const [leagueData, setLeagueData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -30,12 +39,13 @@ const MainDataDisplay = () => {
     };
     fetchLeagueData();
   }, []);
+  console.log("Outside useEffect");
+  console.log(leagueData);
 
-  console.log(`Outside useEffect: n\ ${leagueData}`);
   return (
   <section className=" px-4 py-8">
     <div className="mb-8 flex justify-center space-x-8">
-      {leagueData && leagueData.map((league) => (
+      {leagues.map((league) => (
         <Link href="#" key={league.name}>
         <Image
           key={league.name}
@@ -68,7 +78,7 @@ const MainDataDisplay = () => {
         </Button>
       </div>
       <TabsContent value="today">
-        {leagueData && <League league={leagueData[0]}/>}
+        <League league={leagues[0]}/>
       </TabsContent>
 
       <TabsContent value="ongoing">
