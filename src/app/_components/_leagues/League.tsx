@@ -6,7 +6,7 @@ import Image from "next/image"
 import ResultsAndFixures from "./ResultsAndFixures"
 import { findLeagueCode } from '@/actions/football-api/helper-functions';
 import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 interface LeagueProps {
   league: {
     name: string
@@ -14,6 +14,7 @@ interface LeagueProps {
   }
 }
 const League = ({ league }: LeagueProps) => {
+  const [leagueData, setLeagueData] = useState<any>(null);
 
 
 
@@ -23,12 +24,13 @@ const League = ({ league }: LeagueProps) => {
       const leagueCode = await findLeagueCode(league.name);
       if (leagueCode) {
         const leagues = await fetchLeagueStandings(leagueCode);
+        console.log(leagues);
         return leagues;
       } else {
         console.error("League code not found");
       }
     }
-    console.log(fetchLeagueCode());
+    setLeagueData(fetchLeagueCode());
 
   }, []);
 
