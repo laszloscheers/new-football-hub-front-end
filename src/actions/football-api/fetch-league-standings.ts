@@ -15,10 +15,7 @@ export const fetchLeagueStandings = async (league: string) => {
     try {
       //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
       const resGetLeagueStandings = await fetch(
-        process.env.FOOTBALL_DATA_API_ROUTE +
-          "competitions/" +
-          leagueCode +
-          "/standings",
+        process.env.FOOTBALL_DATA_API_ROUTE + "competitions/PL/standings",
         {
           method: "GET",
           headers: {
