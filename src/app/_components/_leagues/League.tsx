@@ -3,40 +3,32 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { StarFilledIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
-import ResultsAndFixures from "./ResultsAndFixures"
-import { findLeagueCode } from '@/actions/football-api/leagues-clubs-players-ids';
+import Standings from "./Standings"
+import { findLeague, LeagueProps } from '@/actions/football-api/leagues-clubs-players-ids';
 import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings"
 import { useEffect, useState } from "react"
-interface LeagueProps {
-  league: {
-    name: string
-    logo: string
-  }
-}
-const League = ({ league }: LeagueProps) => {
-  const [leagueData, setLeagueData] = useState<any>(null);
 
+const League = ({ leagueQuery }: { leagueQuery: string }) => {
 
+  const[league, setLeague] = useState<LeagueProps>({} as LeagueProps);
 
   useEffect(() => {
     
     const fetchLeagueCode = async () => {
-      const leagueCode = await findLeagueCode(league.name);
-      if (leagueCode) {
-        const leagues = await fetchLeagueStandings(leagueCode);
-        console.log(leagues);
-        return leagues;
-      } else {
-        console.error("League code not found");
+      const leagueArray = await findLeague(leagueQuery);
+      if (leagueArray) {
+        return leagueArray;
       }
     }
-    setLeagueData(fetchLeagueCode());
+    fetchLeagueCode().then(result => {
+      if (result) {
+        setLeague(result);
+      }
+    });
 
-  }, []);
+  }, [leagueQuery]);
 
   const date = new Date().getFullYear();
-  console.log("league data outside UseEffect");
-  console.log(leagueData);
 
   return (
       <>
@@ -80,7 +72,7 @@ const League = ({ league }: LeagueProps) => {
       </Card>
       <Card className="mt-4">
         <CardContent className="flex items-center justify-between p-4">
-          <ResultsAndFixures league={league}/>
+          <Standings leagueArray={league}/>
         </CardContent>
       </Card>
 

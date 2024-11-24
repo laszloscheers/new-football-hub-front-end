@@ -1,40 +1,75 @@
 "use server";
 
-// Takes the name of a league and returns the search ID
-export const findLeagueCode = async (
-  leagueName: string
-): Promise<string | undefined> => {
+// Define the interface to match the leagues array
+export interface LeagueProps {
+  name: string;
+  code: string;
+  logo: string;
+}
+
+// Function to get the leagues array
+export const getLeagues = async (): Promise<LeagueProps[]> => {
   const leagues = [
     {
       name: "premier league",
       code: "PL",
+      logo: "/assets/images/premier-league-logo.webp",
     },
     {
       name: "premiership",
       code: "PL",
+      logo: "/assets/images/premier-league-logo.webp",
     },
     {
       name: "bundesliga",
       code: "BL1",
+      logo: "/assets/images/bundesliga-logo.webp",
     },
-    { name: "ligue 1", code: "FL1" },
-    { name: "serie a", code: "SA" },
+    {
+      name: "ligue 1",
+      code: "FL1",
+      logo: "/assets/images/ligue-1-logo.webp",
+    },
+    {
+      name: "ligue1",
+      code: "FL1",
+      logo: "/assets/images/ligue-1-logo.webp",
+    },
+    {
+      name: "serie a",
+      code: "SA",
+      logo: "/assets/images/serie-a-logo.webp",
+    },
     {
       name: "primera division",
       code: "PD",
       logo: "/assets/images/la-liga-logo.webp",
     },
-    { name: "la liga", code: "PD" },
+    {
+      name: "la liga",
+      code: "PD",
+      logo: "/assets/images/la-liga-logo.webp",
+    },
     {
       name: "efl championship",
       code: "ELC",
+      logo: "/assets/images/efl-championship.webp",
     },
   ];
+
+  return leagues;
+};
+
+// Takes the name of a league and returns the search ID
+export const findLeague = async (
+  leagueName: string
+): Promise<LeagueProps | undefined> => {
+  const leagues = await getLeagues();
   const filtered = leagues.filter((league) => {
     const lowerCaseQuery = leagueName.toLowerCase();
     return league.name.toLowerCase().includes(lowerCaseQuery);
   });
-  return filtered.length > 0 ? filtered[0].code : undefined;
+  return filtered.length > 0 ? filtered[0] : undefined;
 };
 
 // Takes the name of a club and returns the club ID

@@ -17,7 +17,5 @@ export const getApiKeys = async (): Promise<string[]> => {
     process.env.FOOTBALL_API_API_KEY_12,
   ].filter(Boolean); // Filter out any undefined keys
 
-  console.log("API Keys:", apiKeys); // Add this line to check if the keys are loaded
-
   return apiKeys as string[];
 };

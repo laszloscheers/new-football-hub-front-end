@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from "next/image"
 import Link from 'next/link';
 import League from './_leagues/League';
@@ -56,7 +56,7 @@ const MainDataDisplay = () => {
         </Button>
       </div>
       <TabsContent value="today">
-        <League league={leagues[0]}/>
+        <League leagueQuery={leagues[0].name}/>
       </TabsContent>
 
       <TabsContent value="ongoing">

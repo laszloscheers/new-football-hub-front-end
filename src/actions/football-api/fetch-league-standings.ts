@@ -1,7 +1,6 @@
 "use server";
 
 import { getApiKeys } from "./api-array";
-import { findLeagueCode } from "./leagues-clubs-players-ids";
 
 // Combined Method - All Relevant League Data
 export const fetchLeagueStandings = async (league: string) => {
@@ -9,13 +8,15 @@ export const fetchLeagueStandings = async (league: string) => {
   var apiCall = false;
   var i = 0;
   const apiKeys = await getApiKeys();
-  const leagueCode = findLeagueCode(league);
 
   do {
     try {
       //Fetching the standings, top scorers and matches from the API where i is the API in apiKeys' array
       const resGetLeagueStandings = await fetch(
-        process.env.FOOTBALL_DATA_API_ROUTE + "competitions/PL/standings",
+        process.env.FOOTBALL_DATA_API_ROUTE +
+          "competitions/" +
+          league +
+          "/standings",
         {
           method: "GET",
           headers: {
