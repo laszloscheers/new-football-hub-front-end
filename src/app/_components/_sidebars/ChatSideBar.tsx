@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import SignUpBanner from './_components/SignUpBanner';
 
 const ChatSideBar = () => {
   return (
-    <aside className="">
-      <Card className=' h-[80%]'>
+    <aside>
+      <SignUpBanner />
+      <Card className='mt-4 h-[40%]'>
         <CardHeader>
           <CardTitle>Live Chat</CardTitle>
         </CardHeader>

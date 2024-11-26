@@ -9,7 +9,6 @@ export const authRoutes = [
   "/error",
   "reset-password",
   "new-password",
-  "http://api.football-data.org/v4/*",
 ];
 
 export const apiAuthPrefix = "/api/auth";

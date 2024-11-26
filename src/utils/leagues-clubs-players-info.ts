@@ -11,47 +11,47 @@ export interface LeagueProps {
 export const getLeagues = async (): Promise<LeagueProps[]> => {
   const leagues = [
     {
-      name: "premier league",
+      name: "Premier League",
       code: "PL",
       logo: "/assets/images/premier-league-logo.webp",
     },
     {
-      name: "premiership",
+      name: "Premiership",
       code: "PL",
       logo: "/assets/images/premier-league-logo.webp",
     },
     {
-      name: "bundesliga",
+      name: "Bundesliga",
       code: "BL1",
       logo: "/assets/images/bundesliga-logo.webp",
     },
     {
-      name: "ligue 1",
+      name: "Ligue 1",
       code: "FL1",
       logo: "/assets/images/ligue-1-logo.webp",
     },
     {
-      name: "ligue1",
+      name: "Ligue1",
       code: "FL1",
       logo: "/assets/images/ligue-1-logo.webp",
     },
     {
-      name: "serie a",
+      name: "Serie a",
       code: "SA",
       logo: "/assets/images/serie-a-logo.webp",
     },
     {
-      name: "primera division",
+      name: "Primera division",
       code: "PD",
       logo: "/assets/images/la-liga-logo.webp",
     },
     {
-      name: "la liga",
+      name: "La Liga",
       code: "PD",
       logo: "/assets/images/la-liga-logo.webp",
     },
     {
-      name: "efl championship",
+      name: "EFL Championship",
       code: "ELC",
       logo: "/assets/images/efl-championship.webp",
     },
@@ -60,13 +60,18 @@ export const getLeagues = async (): Promise<LeagueProps[]> => {
   return leagues;
 };
 
+// Helper function to simulate a delay
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Takes the name of a league and returns the search ID
 export const findLeague = async (
   leagueName: string
 ): Promise<LeagueProps | undefined> => {
+  await delay(4000);
+
   const leagues = await getLeagues();
   const filtered = leagues.filter((league) => {
-    const lowerCaseQuery = leagueName.toLowerCase();
+    const lowerCaseQuery = leagueName.toLowerCase().replace(/-/g, " ");
     return league.name.toLowerCase().includes(lowerCaseQuery);
   });
   return filtered.length > 0 ? filtered[0] : undefined;

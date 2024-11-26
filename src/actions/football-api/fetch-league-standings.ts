@@ -1,6 +1,6 @@
 "use server";
 
-import { getApiKeys } from "./api-array";
+import { getApiKeys } from "../../utils/api-array";
 
 // Combined Method - All Relevant League Data
 export const fetchLeagueStandings = async (league: string) => {

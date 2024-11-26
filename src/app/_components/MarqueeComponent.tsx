@@ -1,3 +1,5 @@
+"use client";
+
 import Marquee from "@/components/ui/marquee"
 
 const MarqueeComponent = () => {

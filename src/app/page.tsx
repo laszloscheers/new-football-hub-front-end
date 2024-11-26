@@ -1,12 +1,8 @@
-"use client";
-
-import Footer from '@/components/Footer';
-import HeroParticle from './_components/HeroParticle';
-import HeroSection from './_components/HeroSection';
 import MarqueeComponent from './_components/MarqueeComponent';
-import AddsSideBar from './_components/AddsSideBar';
-import ChatSideBar from './_components/ChatSideBar';
-import HomePageContent from './_components/HomePageContent';
+import AddsSideBar from './_components/_sidebars/AddsSideBar';
+import HomePageContent from './_components/_main-content/HomePageContent';
+import ChatSideBar from './_components/_sidebars/ChatSideBar';
+import HeroParticle from './_components/HeroParticle';
 
 export default function Home() {
 
@@ -18,14 +14,12 @@ export default function Home() {
           <AddsSideBar />
           <main>
               <div className="max-w-3xl">
-                <HeroSection />
                 <HomePageContent />
               </div>
           </main>
           <ChatSideBar />
         </div>
         <MarqueeComponent />
-        <Footer />
       </div>
       <HeroParticle />
     </div>

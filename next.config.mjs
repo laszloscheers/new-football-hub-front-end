@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['crests.football-data.org'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'crests.football-data.org',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
