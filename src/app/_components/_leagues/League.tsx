@@ -3,10 +3,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { StarFilledIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
-import Standings from "../../league/_components/Standings"
-import { findLeague, LeagueProps } from '@/actions/football-api/leagues-clubs-players-ids';
+
 import { useEffect, useState } from "react"
 import { LoadingLeagueSkeleton } from "@/components/football-data/LoadingSkeleton"
+import { findLeague, LeagueProps } from "@/utils/leagues-clubs-players-info"
+import Standings from "@/app/leagues/[league]/_components/Standings"
 
 const League = ({ leagueQuery }: { leagueQuery: string }) => {
 
