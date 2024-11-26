@@ -60,15 +60,10 @@ export const getLeagues = async (): Promise<LeagueProps[]> => {
   return leagues;
 };
 
-// Helper function to simulate a delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 // Takes the name of a league and returns the search ID
 export const findLeague = async (
   leagueName: string
 ): Promise<LeagueProps | undefined> => {
-  await delay(4000);
-
   const leagues = await getLeagues();
   const filtered = leagues.filter((league) => {
     const lowerCaseQuery = leagueName.toLowerCase().replace(/-/g, " ");
