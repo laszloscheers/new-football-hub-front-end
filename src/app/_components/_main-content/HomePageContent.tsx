@@ -1,4 +1,4 @@
-import MatchesForHome from "./MatchesForHome";
+import MatchesForHome from "./_matches/MatchesForHome";
 import { getActualLeagues } from "@/utils/leagues-clubs-players-info";
 import LeaguesAvailable from "@/components/football-data/LeaguesAvailable";
 
