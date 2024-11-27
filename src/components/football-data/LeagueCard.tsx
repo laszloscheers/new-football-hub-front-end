@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, CardContent } from '../ui/card'
 import Image from "next/image";
 import { Button } from '../ui/button';

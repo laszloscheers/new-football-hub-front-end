@@ -1,9 +1,13 @@
+"use server";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import HomeMatches from './_components/HomeMatches';
+import TodaysOngoingMatches from './_components/TodaysOngoingMatches';
 import { MatchProps } from "@/types/match-prop";
 import { findLeague, getActualLeagues } from "@/utils/leagues-clubs-players-info";
 import { fetchLeagueMatches } from '@/actions/football-api/fetch-league-matches';
+import FinishedMatches from './_components/_finished-matches/FinishedMatches';
+import UpcomingMatches from './_components/_upcoming-matches/UpcomingMatches';
 
 
 const MatchesForHome = async () => {
@@ -57,22 +61,22 @@ const MatchesForHome = async () => {
       </TabsList>
       {todaysMatchesByLeague.length > 0 && (
         <TabsContent value="today" className="space-y-4">
-          <HomeMatches homeMatches={todaysMatchesByLeague}/>
+          <TodaysOngoingMatches homeMatches={todaysMatchesByLeague}/>
         </TabsContent>
       )}
       {ongoingMatchesByLeague.length > 0 && (
         <TabsContent value="ongoing" className="space-y-4">
-          <HomeMatches homeMatches={ongoingMatchesByLeague}/>
+          <TodaysOngoingMatches homeMatches={ongoingMatchesByLeague}/>
         </TabsContent>
       )}
       {finishedMatchesByLeague.length > 0 && (
         <TabsContent value="finished" className="space-y-4">
-          <HomeMatches homeMatches={finishedMatchesByLeague}/>
+          <FinishedMatches finishedMatches={finishedMatchesByLeague}/>
         </TabsContent>
       )}
       {upcomingMatchesByLeague.length > 0 && (
         <TabsContent value="upcoming" className="space-y-4">
-          <HomeMatches homeMatches={upcomingMatchesByLeague}/>
+          <UpcomingMatches upcomingMatches={upcomingMatchesByLeague}/>
         </TabsContent>
       )}
     </Tabs>
@@ -80,18 +84,3 @@ const MatchesForHome = async () => {
 }
 
 export default MatchesForHome;
-
-      {/* <div className="mb-4 flex items-center justify-between">
-        <Button variant="outline" size="icon" onClick={() => setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)))}>
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <div className="flex items-center space-x-2">
-          <CalendarDays className="h-5 w-5 bg-white" />
-          <span className="text-lg font-medium bg-white">
-            {selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-          </span>
-        </div>
-        <Button variant="outline" size="icon" onClick={() => setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)))}>
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div> */}

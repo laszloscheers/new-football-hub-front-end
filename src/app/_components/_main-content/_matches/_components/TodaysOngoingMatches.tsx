@@ -1,10 +1,8 @@
-"use server";
-
 import LeagueCard from "@/components/football-data/LeagueCard";
 import MatchCard from "@/components/football-data/MatchCard";
 import { MatchProps } from "@/types/match-prop";
 
-const HomeMatches = async ({ homeMatches }: { homeMatches: { league: string, matches: MatchProps[] }[] }) => {
+const TodaysOngoingMatches = ({ homeMatches }: { homeMatches: { league: string, matches: MatchProps[] }[] }) => {
 
   return (
     <div>
@@ -12,7 +10,7 @@ const HomeMatches = async ({ homeMatches }: { homeMatches: { league: string, mat
         <div key={leagueMatches.league}>
           <LeagueCard name={leagueMatches.league} />
           {leagueMatches.matches.map((match) => (
-            <MatchCard key={match.id} match={match} />
+              <MatchCard key={match.id} match={match} />
           ))}
         </div>
       ))}
@@ -20,4 +18,4 @@ const HomeMatches = async ({ homeMatches }: { homeMatches: { league: string, mat
   );
 };
 
-export default HomeMatches;
+export default TodaysOngoingMatches;

@@ -1,34 +1,41 @@
+"use client";
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { useEffect, useState } from 'react';
 
-interface Match {
-  id: string
-  matchday: number
-  utcDate: string
+export interface MatchProps {
+  id: string;
+  matchday: number;
+  utcDate: string;
+  status: string;
   homeTeam: {
-    id: number
-    name: string
-  }
+    id: number;
+    name: string;
+  };
   awayTeam: {
-    id: number
-    name: string
-  }
+    id: number;
+    name: string;
+  };
   score: {
     fullTime: {
-      home: number | null
-      away: number | null
-    }
-  }
+      home: number | null;
+      away: number | null;
+    };
+  };
 }
 
-interface MatchCardProps {
-  match: Match
-}
+export default function MatchCard({ match }: { match: MatchProps }) {
+  
+  const [gameDate, setGameDate] = useState('');
+  const [gameTime, setGameTime] = useState('');
 
-export default function MatchCard({ match }: MatchCardProps) {
-  const gameDate = new Date(match.utcDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
-  const gameTime = new Date(match.utcDate).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  useEffect(() => {
+    const date = new Date(match.utcDate);
+    setGameDate(date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }));
+    setGameTime(date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }));
+  }, [match.utcDate]);
 
   return (
     <Link href={`/match/${match.id}`} className="block">
