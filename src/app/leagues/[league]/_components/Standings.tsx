@@ -2,8 +2,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Link from "next/link";
 import Image from "next/image"
 import { fetchLeagueStandings } from "@/actions/football-api/fetch-league-standings";
-import { LeagueProps } from "@/utils/leagues-clubs-players-info";
 import { cn } from "@/lib/utils";
+import { LeagueProps } from "@/types/league-props";
 interface Team {
   id: number;
   name: string;
