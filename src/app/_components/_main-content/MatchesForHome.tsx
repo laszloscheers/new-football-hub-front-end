@@ -1,13 +1,9 @@
-"use client";
-
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react'
+// import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
+import TodaysMatches from './_components/TodaysMatches';
 
 const MatchesForHome = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
   return (
     <Tabs defaultValue="today">
       <TabsList className="mb-4 grid w-full grid-cols-4">
@@ -16,7 +12,7 @@ const MatchesForHome = () => {
         <TabsTrigger value="finished">Finished</TabsTrigger>
         <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
       </TabsList>
-      <div className="mb-4 flex items-center justify-between">
+      {/* <div className="mb-4 flex items-center justify-between">
         <Button variant="outline" size="icon" onClick={() => setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)))}>
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -29,10 +25,10 @@ const MatchesForHome = () => {
         <Button variant="outline" size="icon" onClick={() => setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)))}>
           <ChevronRight className="h-4 w-4" />
         </Button>
-      </div>
+      </div> */}
 
       <TabsContent value="today">
-        <p>Todays Matches</p>
+        <TodaysMatches />
       </TabsContent>
 
       <TabsContent value="ongoing">

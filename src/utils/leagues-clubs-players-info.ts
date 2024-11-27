@@ -1,13 +1,47 @@
 "use server";
 
-// Define the interface to match the leagues array
-export interface LeagueProps {
-  name: string;
-  code: string;
-  logo: string;
-}
+import { ActualLeagueProps } from "@/types/actual-leagues-props";
+import { LeagueProps } from "@/types/league-props";
 
+// Function to get the leagues array available at the moment
 // Function to get the leagues array
+export const getActualLeagues = async (): Promise<ActualLeagueProps[]> => {
+  const leaguesArray = [
+    {
+      name: "Premier League",
+      logo: "/assets/images/premier-league-logo.webp",
+      url: "premier-league",
+    },
+    {
+      name: "La Liga",
+      logo: "/assets/images/la-liga-logo.webp",
+      url: "la-liga",
+    },
+    {
+      name: "Bundesliga",
+      logo: "/assets/images/bundesliga-logo.webp",
+      url: "bundesliga",
+    },
+    {
+      name: "Serie A",
+      logo: "/assets/images/serie-a-logo.webp",
+      url: "serie-a",
+    },
+    {
+      name: "Ligue 1",
+      logo: "/assets/images/ligue-1-logo.webp",
+      url: "ligue-1",
+    },
+    {
+      name: "EFL Championship",
+      logo: "/assets/images/efl-championship.webp",
+      url: "efl-championship",
+    },
+  ];
+  return leaguesArray;
+};
+
+// Function to find the leagues array
 export const getLeagues = async (): Promise<LeagueProps[]> => {
   const leagues = [
     {
