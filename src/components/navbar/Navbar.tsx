@@ -1,11 +1,27 @@
+"use client"
+
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
-import ButtonAuth from "./ButtonAuth"
-import { ModeToggle } from "./ui/mode-toggle"
+import ButtonAuth from "../ButtonAuth"
+import { SearchBar } from "./_components/SearchBar"
+import { UserAvatar } from "./_components/UserAvatar"
+import { LanguageSelector } from "./_components/LanguageSelector"
+import { ModeToggle } from "./_components/ModeToggle"
+import { UserButton } from "../auth/user-button"
 
 export default function Component() {
+  const handleLanguageChange = (language: string) => {
+    // Implement language change logic
+    console.log("Language changed to:", language)
+  }
+
+  const handleModeChange = (mode: string) => {
+    // Implement mode change and database storage logic
+    console.log("Mode changed to:", mode)
+  }
+
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-20 z-5 bg-secondary">
       <Sheet>
@@ -22,13 +38,10 @@ export default function Component() {
           </Link>
           <div className="grid gap-2 py-6">
             <Link href="/" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
-              Home
+              Results
             </Link>
-            <Link href="/dashboard" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
-              Dashboard
-            </Link>
-            <Link href="/admin" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
-              Admin
+            <Link href="#" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+              News
             </Link>
             <ButtonAuth />
           </div>
@@ -44,24 +57,19 @@ export default function Component() {
           className="group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900 focus:secondary-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/50 data-[state=open]:bg-white/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
-          Home
+          Results
         </Link>
         <Link
-          href="/dashboard"
+          href="#"
           className="group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900 focus:secondary-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/50 data-[state=open]:bg-white/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
-          Dashboard
+          News
         </Link>
-        <Link
-          href="/admin"
-          className="group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900 focus:secondary-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/50 data-[state=open]:bg-white/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          prefetch={false}
-        >
-          Admin
-        </Link>
-        <ButtonAuth />
-        <ModeToggle />
+        <SearchBar />
+        <UserButton />
+        <LanguageSelector currentLanguage="en" onLanguageChange={handleLanguageChange} />
+        <ModeToggle onModeChange={handleModeChange} />
       </nav>
     </header>
   )
