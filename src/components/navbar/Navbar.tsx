@@ -3,15 +3,19 @@
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { JSX, SVGProps } from "react"
+import { JSX, SVGProps, useEffect, useState } from "react"
 import ButtonAuth from "../ButtonAuth"
 import { SearchBar } from "./_components/SearchBar"
-import { UserAvatar } from "./_components/UserAvatar"
+import Image from "next/image";
 import { LanguageSelector } from "./_components/LanguageSelector"
 import { ModeToggle } from "./_components/ModeToggle"
-import { UserButton } from "../auth/user-button"
+import { useTheme } from "next-themes"
+import { UserButton } from "./_components/UserButton"
 
 export default function Component() {
+
+  const { resolvedTheme } = useTheme()
+
   const handleLanguageChange = (language: string) => {
     // Implement language change logic
     console.log("Language changed to:", language)
@@ -43,13 +47,12 @@ export default function Component() {
             <Link href="#" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
               News
             </Link>
-            <ButtonAuth />
           </div>
         </SheetContent>
       </Sheet>
       <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
-        <MountainIcon className="h-6 w-6" />
-        <span className="sr-only">Acme Inc</span>
+        <Image src={resolvedTheme === 'dark' ? "/assets/images/football-hub-logo-dark.png" : "/assets/images/football-hub-logo.png"} alt="Football Hub site Logo" width={192} height={42} />
+        <span className="sr-only">Toggle navigation menu</span>
       </Link>
       <nav className="ml-auto hidden lg:flex gap-6">
         <Link
@@ -59,16 +62,16 @@ export default function Component() {
         >
           Results
         </Link>
-        <Link
+        {/* <Link
           href="#"
           className="group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-white hover:text-gray-900 focus:bg-white focus:text-gray-900 focus:secondary-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-white/50 data-[state=open]:bg-white/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           News
-        </Link>
-        <SearchBar />
+        </Link> */}
+        {/* <SearchBar /> */}
         <UserButton />
-        <LanguageSelector currentLanguage="en" onLanguageChange={handleLanguageChange} />
+        {/* <LanguageSelector currentLanguage="en" onLanguageChange={handleLanguageChange} /> */}
         <ModeToggle onModeChange={handleModeChange} />
       </nav>
     </header>
