@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar/Navbar";
+import HeroParticle from "./_components/HeroParticle";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,7 +41,14 @@ export default function RootLayout({
         >
           <SessionAuthProvider>
             <Navbar />
-              {children}
+            <div className="relative">
+              <div className="relative 2xl:px-32 z-10">
+                {children}
+              </div>
+              <div className="absolute inset-0 z-0">
+                <HeroParticle />
+              </div>
+            </div>
             <Toaster/>
             <Footer />
           </SessionAuthProvider>

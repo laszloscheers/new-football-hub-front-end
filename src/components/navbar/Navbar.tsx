@@ -3,11 +3,8 @@
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { JSX, SVGProps, useEffect, useState } from "react"
-import ButtonAuth from "../ButtonAuth"
-import { SearchBar } from "./_components/SearchBar"
+import { JSX, SVGProps } from "react"
 import Image from "next/image";
-import { LanguageSelector } from "./_components/LanguageSelector"
 import { ModeToggle } from "./_components/ModeToggle"
 import { useTheme } from "next-themes"
 import { UserButton } from "./_components/UserButton"
@@ -51,7 +48,7 @@ export default function Component() {
         </SheetContent>
       </Sheet>
       <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
-        <Image src={resolvedTheme === 'dark' ? "/assets/images/football-hub-logo-dark.png" : "/assets/images/football-hub-logo.png"} alt="Football Hub site Logo" width={192} height={42} />
+        <Image src={resolvedTheme === 'dark' ? "/assets/images/football-hub-logo-dark.svg" : "/assets/images/football-hub-logo.svg"} alt="Football Hub site Logo" width={192} height={42} />
         <span className="sr-only">Toggle navigation menu</span>
       </Link>
       <nav className="ml-auto hidden lg:flex gap-6">

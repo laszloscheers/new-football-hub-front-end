@@ -19,8 +19,9 @@ import { LogoutButton } from "@/components/auth/logout-button";
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
 import { SignUpButton } from "@/components/auth/sign-up-button";
-import { ClipboardPen, LogInIcon, LogOutIcon } from "lucide-react";
+import { ClipboardPen, ListIcon, LogInIcon, LogOutIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 export const UserButton = () => {
   const { data: session, status } = useSession();
@@ -33,19 +34,41 @@ export const UserButton = () => {
         <DropdownMenuTrigger>
           <Avatar>
             <AvatarImage src={session?.user?.picture || ""} />
-            <AvatarFallback className="bg-slate-500">
+            <AvatarFallback className="bg-[#06213e]">
               <FaUser className="text-white" />
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40" align="end">
         {session ? (
+          <>
+          {session.user.role === "user" ? (
+          <DropdownMenuItem>
+            <Link href="/dashboard">
+              <div className="flex items-center">
+                  <ListIcon className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem>
+              <Link href="/admin">
+                <div className="flex items-center">
+                    <ListIcon className="mr-2 h-4 w-4" />
+                    <span>Dashboard</span>
+                </div>
+              </Link>
+            </DropdownMenuItem>
+          )
+          }
           <LogoutButton>
             <DropdownMenuItem>
               <LogOutIcon className="w-3 h-3 mr-2" />
               Logout
             </DropdownMenuItem>
           </LogoutButton>
+          </>
         ) : (
           <>
             <LoginButton mode="modal" asChild>

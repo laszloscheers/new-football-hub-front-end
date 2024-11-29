@@ -102,10 +102,10 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
       <CardContent>
         <Form {...form}>
           <form
-          className="space-y-6"
+          className="2xl:space-y-6"
           onSubmit={form.handleSubmit(onSubmit)}
           >
-            <div className="space-y-4">
+            <div className="2xl:space-y-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -214,7 +214,7 @@ export const EditButtonForm = ({ user }: { user: ExtendedUser}) => {
       <CardHeader className="bg-red-500 border-red-500 text-red-50 p-4 flex items-center gap-2">
         <CardTitle className="mr-auto">Danger zone</CardTitle>
       </CardHeader>
-      <CardContent className="p-4 space-y-2">
+      <CardContent className="p-4 2xl:space-y-2">
         <p>
           This will permanently delete the user from the system.
         </p>

@@ -81,10 +81,10 @@ export const NewUserButtonForm = () => {
       <CardContent>
         <Form {...form}>
           <form
-          className="space-y-6"
+          className="2xl:space-y-6"
           onSubmit={form.handleSubmit(onSubmit)}
           >
-            <div className="space-y-4">
+            <div className="2xl:space-y-4">
               <FormField
                 control={form.control}
                 name="name"

@@ -1,11 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import SignUpBanner from './_components/SignUpBanner';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { CornerDownLeft } from 'lucide-react';
+import { CornerDownLeft, Menu } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import SignUpBanner from './_components/SignUpBanner';
 import { ChatInput } from './_components/ChatInput';
 import Pusher from 'pusher-js';
 
@@ -14,6 +15,7 @@ const ChatSideBar = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [chatInput, setChatInput] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   let allMessages = [];
 
   useEffect(() => {
@@ -49,26 +51,23 @@ const ChatSideBar = () => {
     setChatInput('');
   };
 
-  return (
-    <aside>
+  const ChatContent = () => (
+    <>
       <SignUpBanner />
       <Card className='mt-4 h-[60vh]'>
         <CardHeader>
           <CardTitle>Live Chat</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-8">
-            <div className='grid gap-4'>
-            {messages && messages.map((message) => {
-              return (
-                <div className='grid gap-1'>
-                  <p className="text-sm font-medium leading-none text-right">{message.message}</p>
-                  <p className="text-sm text-muted-foreground text-right">
-                    {message.username}
-                  </p>
-                </div>
-              )
-            })
-            }
+          <div className='grid gap-4'>
+            {messages && messages.map((message, index) => (
+              <div key={index} className='grid gap-1'>
+                <p className="text-sm font-medium leading-none text-right">{message.message}</p>
+                <p className="text-sm text-muted-foreground text-right">
+                  {message.username}
+                </p>
+              </div>
+            ))}
             <form
               onSubmit={submit}
               className="relative rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
@@ -94,8 +93,29 @@ const ChatSideBar = () => {
           </div>
         </CardContent>
       </Card>
-    </aside>
-  )
-}
+    </>
+  );
+
+  return (
+    <>
+      <div className="2xl:hidden">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" className="w-full">
+              <Menu className="mr-2 h-4 w-4" />
+              Open Chat
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <ChatContent />
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="hidden 2xl:block">
+        <ChatContent />
+      </div>
+    </>
+  );
+};
 
 export default ChatSideBar;

@@ -15,7 +15,7 @@ const LeaguesPage = () => {
 
   return (
     <section className=" px-4">
-      <div className="mb-8 flex justify-center space-x-8">
+      <div className="mb-8 flex justify-center 2xl:space-x-8">
         {leagues.map((league) => (
           <Link
             href={{

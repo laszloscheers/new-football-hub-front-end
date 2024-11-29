@@ -65,7 +65,7 @@ const UpcomingMatchesClient = (leagueMatches: {leagueMatches: MatchProps[]}) => 
         availableDates={availableDates}
         initialDate={initialDate}
       />
-      <div className="space-y-4">
+      <div className="2xl:space-y-4">
         {filteredMatches.map(match => (
           <MatchCard key={match.id} match={match} />
         ))}

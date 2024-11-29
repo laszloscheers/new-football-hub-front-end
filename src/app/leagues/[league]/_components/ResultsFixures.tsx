@@ -23,22 +23,22 @@ const ResultsFixtures = async ({ leagueArray }: { leagueArray: LeagueProps }) =>
         <TabsTrigger value="ongoing-matches" className="text-xs sm:text-sm">Ongoing Matches</TabsTrigger>
         <TabsTrigger value="finished-matches" className="text-xs sm:text-sm">Finished</TabsTrigger>
       </TabsList>
-      <TabsContent value="all-matches" className="space-y-4">
+      <TabsContent value="all-matches" className="2xl:space-y-4">
         {matchesArray.map((match: MatchProps) => (
           <MatchCard key={match.id} match={match} />
         ))}
       </TabsContent>
-      <TabsContent value="today-matches" className="space-y-4">
+      <TabsContent value="today-matches" className="2xl:space-y-4">
         {todayMatches.map((match: MatchProps) => (
           <MatchCard key={match.id} match={match} />
         ))}
       </TabsContent>
-      <TabsContent value="ongoing-matches" className="space-y-4">
+      <TabsContent value="ongoing-matches" className="2xl:space-y-4">
         {ongoingMatches.map((match: MatchProps) => (
           <MatchCard key={match.id} match={match} />
         ))}
       </TabsContent>
-      <TabsContent value="finished-matches" className="space-y-4">
+      <TabsContent value="finished-matches" className="2xl:space-y-4">
         {finishedMatches.map((match: MatchProps)=> (
           <MatchCard key={match.id} match={match} />
         ))}

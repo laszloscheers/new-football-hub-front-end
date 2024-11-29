@@ -29,8 +29,8 @@ export default function UserBoard() {
             </div>
           </div>
           <div className="gap-4 mb-8">
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2 text-sm">
+            <div className="2xl:space-y-2">
+              <div className="flex items-center 2xl:space-x-2 text-sm">
                 <span className="flex flex-col gap-1 items-start">
                   <p>Email</p>
                   <span className="flex flex-row items-center gap-2">
@@ -39,7 +39,7 @@ export default function UserBoard() {
                   </span>
                 </span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex items-center 2xl:space-x-2 text-sm">
                 <span className="flex flex-col gap-1 items-start">
                   <p>Preferred Mode</p>
                   <span className="flex flex-row items-center gap-2">
@@ -48,7 +48,7 @@ export default function UserBoard() {
                   </span>
                 </span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex items-center 2xl:space-x-2 text-sm">
                 <span className="flex flex-col gap-1 items-start">
                   <p>Preferred Language</p>
                   <span className="flex flex-row items-center gap-2">

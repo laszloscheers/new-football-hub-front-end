@@ -48,7 +48,7 @@ export default function MatchCard({ match }: { match: MatchProps }) {
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center space-y-2 w-1/3">
+            <div className="flex flex-col items-center 2xl:space-y-2 w-1/3">
               <Image
                 src={`https://crests.football-data.org/${match.homeTeam.id}.png`}
                 alt={`${match.homeTeam.name} crest`}
@@ -67,7 +67,7 @@ export default function MatchCard({ match }: { match: MatchProps }) {
               <div className="text-xs text-muted-foreground">Kick Off</div>
               <div className="text-xs text-muted-foreground">{gameTime} (GMT+1)</div>
             </div>
-            <div className="flex flex-col items-center space-y-2 w-1/3">
+            <div className="flex flex-col items-center 2xl:space-y-2 w-1/3">
               <Image
                 src={`https://crests.football-data.org/${match.awayTeam.id}.png`}
                 alt={`${match.awayTeam.name} crest`}

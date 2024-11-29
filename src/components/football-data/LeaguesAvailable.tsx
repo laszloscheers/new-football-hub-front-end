@@ -5,7 +5,7 @@ import { getActualLeagues } from '@/utils/leagues-clubs-players-info';
 const LeaguesAvailable = async () => {
   const leaguesArray = await getActualLeagues();
   return (
-    <div className="mb-8 flex justify-center space-x-8">
+    <div className="mb-8 flex justify-center 2xl:space-x-8">
     {leaguesArray.map((league) => (
       <Link
         href={{

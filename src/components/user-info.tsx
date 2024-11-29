@@ -14,7 +14,7 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
           {label}
         </p>
       </CardHeader>
-      <CardContent className="space-y-4" >
+      <CardContent className="2xl:space-y-4" >
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">
             Name

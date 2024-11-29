@@ -51,31 +51,41 @@ const MatchesForHome = async () => {
     }
   }
 
+  const availableTabs = [
+    { key: 'today', label: "Today's Matches", content: todaysMatchesByLeague },
+    { key: 'ongoing', label: 'Ongoing', content: ongoingMatchesByLeague },
+    { key: 'finished', label: 'Finished', content: finishedMatchesByLeague },
+    { key: 'upcoming', label: 'Upcoming', content: upcomingMatchesByLeague },
+  ].filter(tab => tab.content.length > 0);
+
+  const defaultTab = availableTabs.length > 0 ? availableTabs[0].key : '';
+
   return (
-    <Tabs defaultValue="today">
-      <TabsList className="mb-4 grid w-full grid-cols-4">
-        {todaysMatchesByLeague.length > 0 && <TabsTrigger value="today">Today's Matches</TabsTrigger>}
-        {ongoingMatchesByLeague.length > 0 && <TabsTrigger value="ongoing">Ongoing</TabsTrigger>}
-        {finishedMatchesByLeague.length > 0 && <TabsTrigger value="finished">Finished</TabsTrigger>}
-        {upcomingMatchesByLeague.length > 0 && <TabsTrigger value="upcoming">Upcoming</TabsTrigger>}
+    <Tabs defaultValue={defaultTab}>
+      <TabsList className={`mb-4 grid w-full grid-cols-${availableTabs.length}`}>
+        {availableTabs.map(tab => (
+          <TabsTrigger key={tab.key} value={tab.key}>
+            {tab.label}
+          </TabsTrigger>
+        ))}
       </TabsList>
       {todaysMatchesByLeague.length > 0 && (
-        <TabsContent value="today" className="space-y-4">
+        <TabsContent value="today" className="2xl:space-y-4">
           <TodaysOngoingMatches homeMatches={todaysMatchesByLeague}/>
         </TabsContent>
       )}
       {ongoingMatchesByLeague.length > 0 && (
-        <TabsContent value="ongoing" className="space-y-4">
+        <TabsContent value="ongoing" className="2xl:space-y-4">
           <TodaysOngoingMatches homeMatches={ongoingMatchesByLeague}/>
         </TabsContent>
       )}
       {finishedMatchesByLeague.length > 0 && (
-        <TabsContent value="finished" className="space-y-4">
+        <TabsContent value="finished" className="2xl:space-y-4">
           <FinishedMatches finishedMatches={finishedMatchesByLeague}/>
         </TabsContent>
       )}
       {upcomingMatchesByLeague.length > 0 && (
-        <TabsContent value="upcoming" className="space-y-4">
+        <TabsContent value="upcoming" className="2xl:space-y-4">
           <UpcomingMatches upcomingMatches={upcomingMatchesByLeague}/>
         </TabsContent>
       )}
