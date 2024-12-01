@@ -15,23 +15,6 @@ const LeaguesPage = () => {
 
   return (
     <section className=" px-4">
-      <div className="mb-8 flex justify-center 2xl:space-x-8">
-        {leagues.map((league) => (
-          <Link
-            href={{
-              pathname: `/leagues/${league.url}`,
-            }}
-            key={league.name}
-          >
-          <Image
-            src={league.logo}
-            alt={league.name}
-            width={80}
-            height={80}
-          />
-          </Link>
-        ))}
-      </div>
       <LeaguePage params={{
         league: "Premier League"
       }} />

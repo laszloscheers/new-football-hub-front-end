@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { CornerDownLeft, Menu } from 'lucide-react';
+import { CornerDownLeft, Menu, MessageCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -98,15 +98,15 @@ const ChatSideBar = () => {
 
   return (
     <>
-      <div className="2xl:hidden">
+      <div className="2xl:hidden fixed bottom-4 right-4 z-50">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" className="w-full">
-              <Menu className="mr-2 h-4 w-4" />
-              Open Chat
+            <Button variant="outline" className="rounded-full shadow-lg">
+              <MessageCircle className="h-6 w-6" />
+              <span>Open Chat</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+          <SheetContent side="right" className="w-full sm:w-[400px] sm:max-w-lg">
             <ChatContent />
           </SheetContent>
         </Sheet>
@@ -115,7 +115,7 @@ const ChatSideBar = () => {
         <ChatContent />
       </div>
     </>
-  );
+  )
 };
 
 export default ChatSideBar;

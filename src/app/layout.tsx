@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import HeroParticle from "./_components/HeroParticle";
+import CookieConsent from "./_components/CookieConsent";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -49,6 +50,7 @@ export default function RootLayout({
                 <HeroParticle />
               </div>
             </div>
+            <CookieConsent />
             <Toaster/>
             <Footer />
           </SessionAuthProvider>
