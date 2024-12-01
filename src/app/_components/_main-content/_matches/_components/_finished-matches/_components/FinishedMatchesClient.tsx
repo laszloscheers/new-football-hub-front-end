@@ -66,9 +66,6 @@ const FinishedMatchesClient = (leagueMatches: {leagueMatches: MatchProps[]}) => 
           </div>
         )}
       </div>
-      {filteredMatches.map((match) => (
-        <MatchCard key={match.id} match={match} />
-      ))}
     </div>
   );
 };

@@ -103,7 +103,7 @@ const SiteFooter = () => {
       <div className="border-t">
         <div className="container flex flex-col gap-4 px-4 py-6 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()}  <a href="laszloscheers.com">Laszlo Scheers</a>. All rights reserved.
+            © {new Date().getFullYear()}  <a href="https://laszloscheers.com">Laszlo Scheers</a>. All rights reserved.
           </p>
           <div className="flex justify-center space-x-4 md:justify-end">
             <Link href="/terms-and-conditions" className="text-sm text-muted-foreground hover:text-primary">

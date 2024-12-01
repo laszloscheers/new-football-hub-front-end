@@ -24,7 +24,7 @@ export default function TermsPage() {
           
           <h3 className="text-lg sm:text-xl font-medium mb-2">Identification of the Parties</h3>
           <p className="mb-4">
-            These Terms and Conditions (&quot;Terms&quot;) govern the mutual rights and obligations between Football Hub, a registered company based at Pasaje de las Gitanillas, N 2, Escalera D 2-1, 29620, Torremolinos (Málaga), Spain., and any third parties (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) who access and use our website (the &quot;Site&quot;).
+            These Terms and Conditions (&quot;Terms&quot;) govern the mutual rights and obligations between Football Hub, a registered company, and any third parties (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) who access and use our website (the &quot;Site&quot;).
           </p>
           
           <h3 className="text-lg sm:text-xl font-medium mb-2">Applicability of the Terms</h3>
@@ -164,7 +164,7 @@ export default function TermsPage() {
           
           <h3 className="text-lg sm:text-xl font-medium mb-2">Contact Information</h3>
           <p>
-            For any queries, reach us at <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors">info@footballhub.es</a> or our registered address: Pasaje de las Gitanillas, N 2, Escalera D 2-1, 29620, Torremolinos (Málaga), Spain.
+            For any queries, reach us at <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors">info@footballhub.es</a>
           </p>
         </div>
       </section>

@@ -22,7 +22,7 @@ const MatchesForHome = async () => {
 
   const fetchAllMatches = async (leagueCode: string): Promise<MatchProps[]> => {
     const allMatches = await fetchLeagueMatches(leagueCode);
-    return allMatches.matches;
+    return allMatches.matches || [];
   };
 
   for (const league of leaguesArray) {

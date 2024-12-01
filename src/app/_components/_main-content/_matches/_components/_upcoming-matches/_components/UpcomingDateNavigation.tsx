@@ -13,7 +13,6 @@ interface UpcomingDateNavigationProps {
   initialDate: Date
 }
 
-
 export interface AvailableDate {
   date: Date
   matches: number
@@ -53,13 +52,13 @@ export function UpcomingDateNavigation({ onDateChange, availableDates, initialDa
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 bg-slate-900 text-white p-2 rounded-lg">
+    <div className="flex items-center justify-center gap-2 bg-white text-gray-600 p-2 rounded-lg shadow-sm border mb-2">
       <Button 
         variant="ghost" 
         size="icon" 
         onClick={() => handleDateChange('prev')}
         disabled={selectedDate.toDateString() === availableDates[0].date.toDateString()}
-        className="text-white hover:text-white hover:bg-slate-800"
+        className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
       >
         <ChevronLeft className="h-4 w-4" />
       </Button>
@@ -69,7 +68,7 @@ export function UpcomingDateNavigation({ onDateChange, availableDates, initialDa
           <Button
             variant="ghost"
             className={cn(
-              "min-w-[120px] justify-center text-white hover:text-white hover:bg-slate-800 px-2 font-medium",
+              "min-w-[120px] justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 px-2 font-medium",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -80,7 +79,7 @@ export function UpcomingDateNavigation({ onDateChange, availableDates, initialDa
             }).toUpperCase()}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0">
+        <PopoverContent className="w-auto p-0 bg-white border-gray-200">
           <Calendar
             mode="single"
             selected={selectedDate}
@@ -91,6 +90,7 @@ export function UpcomingDateNavigation({ onDateChange, availableDates, initialDa
             }
             initialFocus
             defaultMonth={initialDate}
+            className="bg-white"
           />
         </PopoverContent>
       </Popover>
@@ -100,7 +100,7 @@ export function UpcomingDateNavigation({ onDateChange, availableDates, initialDa
         size="icon"
         onClick={() => handleDateChange('next')}
         disabled={selectedDate.toDateString() === availableDates[availableDates.length - 1].date.toDateString()}
-        className="text-white hover:text-white hover:bg-slate-800"
+        className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
       >
         <ChevronRight className="h-4 w-4" />
       </Button>

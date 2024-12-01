@@ -32,8 +32,8 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-xl sm:text-2xl font-semibold">2. CONTROLLER IDENTITY AND CONTACT INFORMATION</h2>
           <Separator className="my-4" />
           <p className="mb-4">
-            We, Football Hub, located at Pasaje de las Gitanillas, N 2, Escalera D 2-1, are the controllers of your personal data. For inquiries, you can contact us via email at{' '}
-            <a href="mailto:info@footballhub.es" className="text-primary hover:text-primary/80 transition-colors">
+            We, Football Hub, are the controllers of your personal data. For inquiries, you can contact us via email at{' '}
+            <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors" >
               info@footballhub.es
             </a>.
           </p>
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
           </ul>
           <p className="mb-4">
             To exercise these rights, please contact us at{' '}
-            <a href="mailto:info@footballhub.es" className="text-primary hover:text-primary/80 transition-colors">
+            <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors">
               info@footballhub.es
             </a>
           </p>
@@ -144,7 +144,7 @@ export default function PrivacyPolicyPage() {
         <p>Football Hub</p>
         <p className="mt-2">
           For any privacy-related queries, please contact us at{' '}
-          <a href="mailto:info@footballhub.es" className="text-primary hover:text-primary/80 transition-colors">
+          <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors" >
             info@footballhub.es
           </a>
         </p>

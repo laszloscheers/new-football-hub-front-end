@@ -16,8 +16,8 @@ const LeaguesAvailable = async () => {
       <Image
         src={league.logo}
         alt={league.name}
-        width={80}
-        height={80}
+        width={400}
+        height={400}
       />
       </Link>
     ))}
@@ -25,4 +25,4 @@ const LeaguesAvailable = async () => {
   )
 }
 
-export default LeaguesAvailable
+export default LeaguesAvailable;

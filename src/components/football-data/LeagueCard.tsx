@@ -1,45 +1,55 @@
-import { Card, CardContent } from '../ui/card'
-import Image from "next/image";
-import { Button } from '../ui/button';
-import { StarFilledIcon } from "@radix-ui/react-icons";
-import { findLeague } from '@/utils/leagues-clubs-players-info';
+import Image from "next/image"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Star } from 'lucide-react'
+import { findLeague } from "@/utils/leagues-clubs-players-info"
 
-const LeagueCard = async ( leagueName: { name:string } ) => {
-  const leagueData = await findLeague(leagueName.name);
-  const date = new Date().getFullYear();
+interface LeagueCardProps {
+  name: string
+}
+
+const LeagueCard = async ({ name }: LeagueCardProps) => {
+  const leagueData = await findLeague(name)
+  const currentYear = new Date().getFullYear()
 
   if (!leagueData) {
-    return <p>League not found.</p>;
+    return <p className="text-muted-foreground">League not found.</p>
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col p-0">
-        <div className="flex items-center p-4 gap-4">
-          <div>
-            <Image
-              key={leagueData.name}
-              src={leagueData.logo}
-              alt={leagueData.name}
-              width={75}
-              height={75}
-            />
+    <Card className="w-full overflow-hidden bg-[#06213e] hover:bg-[#002b57] transition-colors mb-1">
+      <CardContent className="p-0">
+        <div className="flex items-center justify-between p-3 sm:p-4">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="flex-shrink-0">
+              <Image
+                src={leagueData.logo}
+                alt={leagueData.name}
+                width={400}
+                height={400}
+                className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+              />
+            </div>
+            <div>
+              <h3 className="text-sm sm:text-base font-semibold text-yellow-400">
+                {leagueData.name}
+              </h3>
+              <p className="text-xs sm:text-sm text-white/80">
+                {currentYear} - {currentYear + 1}
+              </p>
+            </div>
           </div>
-          <div>
-            <span className="flex gap-8">
-              <h3 className="text-2xl font-bold pb-2">{leagueData.name}</h3>
-              <span className="flex items-center">
-                <Button variant={null} size={null} >
-                  <StarFilledIcon className=" text-yellow-400" style={{width: "2.3rem", height:"2.3rem"}} />
-                </Button>
-              </span>
-            </span>
-            <p className="text-sm text-muted-foreground">{date} - {date+1}</p>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-yellow-400 hover:text-yellow-500 hover:bg-transparent"
+          >
+            <Star className="h-5 w-5 sm:h-6 sm:w-6" />
+          </Button>
         </div>
       </CardContent>
     </Card>
   )
 }
 
-export default LeagueCard
+export default LeagueCard;

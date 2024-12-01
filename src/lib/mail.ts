@@ -23,3 +23,14 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     html: `<p>Click <a href="${confirmLink}">Click here</a> to reset your password.</p>`,
   });
 };
+
+export const sendContactPageForm = async (email: string, token: string) => {
+  const confirmLink = `${process.env.NEXT_PUBLIC_APP_URL}/new-password?token=${token}`;
+
+  await resend.emails.send({
+    from: "admin@footballhub.es",
+    to: email,
+    subject: "Reset your password",
+    html: `<p>Click <a href="${confirmLink}">Click here</a> to reset your password.</p>`,
+  });
+};

@@ -82,7 +82,7 @@ export default function CookiesPage() {
       </section>
       
       <footer className="mt-12 text-sm text-muted-foreground">
-        <p>For any questions about these policies, please contact us at <a href="mailto:info@footballhub.es" className="text-primary hover:text-primary-foreground transition-colors">info@footballhub.es</a>.</p>
+        <p>For any questions about these policies, please contact us at <a href="mailto:info@footballhub.es" className="text-blue-600 hover:text-blue-800 transition-colors" >info@footballhub.es</a>.</p>
         <p className="mt-4">Last Updated: December 1, 2024</p>
         <p>Football Hub</p>
       </footer>
