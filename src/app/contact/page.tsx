@@ -34,7 +34,7 @@ export default function ContactPage() {
       <div className="lg:w-3/5 relative flex items-center justify-center min-h-[600px] lg:min-h-screen">
         <div className="absolute inset-0">
           <Image
-            src="/assets/images/football-stadium.webp"
+            src="/assets/images/1.jpg"
             alt="Football stadium"
             fill
             className="object-cover"

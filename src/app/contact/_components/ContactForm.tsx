@@ -61,18 +61,17 @@ export function ContactForm() {
 
     startTransition(async () => {
       try {
-        const response = await fetch('/api/contact/contact', {
+        const response = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
         });
-
         const data = await response.json();
-
         if (response.ok) {
-          setSuccess(data.message);
+          form.reset();
+          setSuccess(data.success);
         } else {
           setError(data.error);
         }

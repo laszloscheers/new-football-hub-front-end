@@ -31,8 +31,8 @@ export const sendContactPageForm = async (values: {
   message: string;
 }) => {
   await resend.emails.send({
-    from: "admin@footballhub.es",
-    to: "admin@footballhub.es",
+    from: "info@footballhub.es",
+    to: "laszloscheers@gmail.com",
     subject: "Contact form message",
     html: `
     <h1>Contact Form Submission</h1>
