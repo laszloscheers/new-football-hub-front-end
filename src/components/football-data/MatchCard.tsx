@@ -39,7 +39,7 @@ export default function MatchCard({ match }: { match: MatchProps }) {
   const hasScore = match.score.fullTime.home !== null && match.score.fullTime.away !== null;
 
   return (
-    <Link href={`/match/${match.id}`} className="block">
+    // <Link href={`/match/${match.id}`} className="block">
       <Card className="hover:bg-muted/50 transition-colors p-2 pb-3">
         <CardContent className="p-0">
           <div className="flex items-center justify-between text-xs">
@@ -80,6 +80,6 @@ export default function MatchCard({ match }: { match: MatchProps }) {
           </div>
         </CardContent>
       </Card>
-    </Link>
+    // </Link>
   )
 }

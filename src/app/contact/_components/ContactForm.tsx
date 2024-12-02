@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -18,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { FileText } from 'lucide-react'
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -38,7 +40,9 @@ const formSchema = z.object({
 })
 
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | string[] | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,17 +56,30 @@ export function ContactForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
-    try {
-      // Add your form submission logic here
-      console.log(values)
-      // Show success message or redirect
-    } catch (error) {
-      // Handle error
-      console.error(error)
-    } finally {
-      setIsSubmitting(false)
-    }
+    setError("");
+    setSuccess("");
+
+    startTransition(async () => {
+      try {
+        const response = await fetch('/api/contact/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setSuccess(data.message);
+        } else {
+          setError(data.error);
+        }
+      } catch (error) {
+        setError('An unexpected error occurred. Please try again later.');
+      }
+    });
   }
 
   return (
@@ -172,12 +189,14 @@ export function ContactForm() {
               </FormItem>
             )}
           />
+          <FormError message={error as any} />
+          <FormSuccess message={success as any} />
           <Button 
             type="submit" 
             className="w-full bg-[#06213e] hover:bg-[#002b57] text-white" 
-            disabled={isSubmitting}
+            disabled={isPending}
           >
-            {isSubmitting ? "Sending..." : "Send Message"}
+            {isPending ? "Sending..." : "Send Message"}
           </Button>
         </form>
       </Form>
