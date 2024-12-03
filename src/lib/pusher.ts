@@ -1,5 +1,8 @@
 import Pusher from "pusher-js";
 
-export const pusherClient = new Pusher(process.env.PUSHER_KEY || "", {
-  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER || "",
+const pusherKey = process.env.NEXT_PUBLIC_PUSHER_KEY as string;
+const pusherCluster = process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string;
+
+export const pusherClient = new Pusher(pusherKey, {
+  cluster: pusherCluster,
 });

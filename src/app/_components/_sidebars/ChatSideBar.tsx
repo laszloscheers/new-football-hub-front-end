@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState, useTransition, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { useSession } from 'next-auth/react'
 import { Send, MessageCircle, LogIn } from 'lucide-react'
 import { Card } from '@/components/ui/card'
@@ -10,10 +10,9 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import SignUpBanner from './_components/SignUpBanner'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { pusherClient } from '@/lib/pusher'
 import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
 import { LoginButton } from '@/components/auth/login-button'
+import { pusherClient } from '@/lib/pusher'
 
 interface Message {
   username: string
@@ -24,17 +23,15 @@ const ChatSideBar = () => {
   const { data: session } = useSession()
   const [messages, setMessages] = useState<Message[]>([])
   const [error, setError] = useState<string | string[] | undefined>("")
-  const [success, setSuccess] = useState<string | undefined>("")
   const [isPending, startTransition] = useTransition()
   const [input, setInput] = useState<string>("")
   const [isOpen, setIsOpen] = useState(false)
 
 
-  useEffect(() => {
+  useEffect(() => { 
     pusherClient.subscribe('chat');
     
     pusherClient.bind('message', (data: { message: string; username: string }) => {
-      console.log(data);
       setMessages((prev) => [...prev, { username: data.username, message: data.message }]);
     })
 
@@ -47,7 +44,6 @@ const ChatSideBar = () => {
     e.preventDefault();
     if (!input.trim() || !session) return
     setError("");
-    setSuccess("");
 
     startTransition(() => {
       fetch('/api/pusher', {
@@ -64,7 +60,6 @@ const ChatSideBar = () => {
         .then((response) => response.json())
         .then((data) => {
           setError(data.error)
-          setSuccess(data.success)
         })
     })
 
@@ -147,7 +142,6 @@ const ChatSideBar = () => {
               </div>
             </div>
             <FormError message={error as any} />
-            <FormSuccess message={success as any} />
           </SheetContent>
         </Sheet>
       </div>
@@ -218,7 +212,6 @@ const ChatSideBar = () => {
             </div>
           </div>
           <FormError message={error as any} />
-          <FormSuccess message={success as any} />
         </Card>
       </div>
     </>
