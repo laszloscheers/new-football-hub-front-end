@@ -2,10 +2,11 @@ import LeagueCard from "@/components/football-data/LeagueCard";
 import { MatchProps } from "@/types/match-prop";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import UpcomingMatchesClient from "./_components/UpcomingMatchesClient";
+import { Card } from "@/components/ui/card";
 
 const UpcomingMatches = async ({ upcomingMatches }: { upcomingMatches: { league: string, matches: MatchProps[] }[] }) => {
   return (
-    <div>
+    <Card className="overflow-hidden border-0 p-3">
       {upcomingMatches.map((leagueMatches) => (
         <Collapsible
           key={leagueMatches.league}
@@ -18,7 +19,7 @@ const UpcomingMatches = async ({ upcomingMatches }: { upcomingMatches: { league:
           </CollapsibleContent>
         </Collapsible>
       ))}
-    </div>
+    </Card>
   );
 };
 

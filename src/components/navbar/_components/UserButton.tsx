@@ -35,7 +35,11 @@ export const UserButton = () => {
           <Avatar>
             <AvatarImage src={session?.user?.picture || ""} />
             <AvatarFallback className="bg-[#06213e]">
-              <FaUser className="text-white" />
+              {!session ? (
+                <FaUser className="text-white" />
+              ) : (
+                <FaUser className="text-green-500" />
+              )}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

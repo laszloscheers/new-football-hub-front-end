@@ -51,7 +51,7 @@ const FinishedMatchesClient = (leagueMatches: {leagueMatches: MatchProps[]}) => 
   }
 
   return (
-    <div>
+    <div className='mt-2 mb-3'>
       <FinishedDateNavigation 
         onDateChange={setSelectedDate}
         availableDates={availableDates}

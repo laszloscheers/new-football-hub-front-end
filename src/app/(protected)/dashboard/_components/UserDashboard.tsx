@@ -1,173 +1,53 @@
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { League } from "@/app/_components/_main-content/_matches/_components/_finished-matches/_components/FinishedMatchesClient";
+import DashboardLeaguePage from "./DashboardLeaguePage";
 
 export default function UserDashboard() {
+  const router = useRouter();
+  const [userLeagues, setUserLeagues] = useState<League[]>([]);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "loading") return; // Wait for session to be loaded
+    if (!session) {
+      router.push("/login");
+      return;
+    }
+
+    fetch('/api/get-leagues', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: session.user.token }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error('Failed to fetch user leagues');
+          throw new Error('Failed to fetch user leagues');
+        }
+      })
+      .then((leagues) => {
+        setUserLeagues(leagues);
+      })
+      .catch((error) => {
+        console.error("Error fetching user leagues:", error);
+      });
+  }, [session, status]);
+
+
   return (
-    <Card className="w-full">
-      <CardHeader className="px-7">
-        <CardTitle>Leagues</CardTitle>
-        <CardDescription>All your pinned leagues.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead className="hidden sm:table-cell">Type</TableHead>
-              <TableHead className="hidden sm:table-cell">Status</TableHead>
-              <TableHead className="hidden md:table-cell">Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow className="bg-accent">
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Sale</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Olivia Smith</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  olivia@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Refund</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="outline">
-                  Declined
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-24</TableCell>
-              <TableCell className="text-right">$150.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Noah Williams</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  noah@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">
-                Subscription
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-25</TableCell>
-              <TableCell className="text-right">$350.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Sale</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-26</TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Sale</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Liam Johnson</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  liam@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Sale</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Olivia Smith</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  olivia@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Refund</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="outline">
-                  Declined
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-24</TableCell>
-              <TableCell className="text-right">$150.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="font-medium">Emma Brown</div>
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  emma@example.com
-                </div>
-              </TableCell>
-              <TableCell className="hidden sm:table-cell">Sale</TableCell>
-              <TableCell className="hidden sm:table-cell">
-                <Badge className="text-xs" variant="secondary">
-                  Fulfilled
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">2023-06-26</TableCell>
-              <TableCell className="text-right">$450.00</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
-  )
+    <>
+      {userLeagues.map((league: League) => (
+        <DashboardLeaguePage key={league.name} params={{ league: league.name }} />
+      ))}
+    </>
+  );
 }
 

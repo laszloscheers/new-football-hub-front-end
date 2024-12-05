@@ -59,7 +59,7 @@ const UpcomingMatchesClient = (leagueMatches: {leagueMatches: MatchProps[]}) => 
   }
 
   return (
-    <div>
+    <div className='mt-2 mb-3'>
       <UpcomingDateNavigation 
         onDateChange={setSelectedDate}
         availableDates={availableDates}

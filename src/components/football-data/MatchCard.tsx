@@ -1,6 +1,5 @@
 "use client";
 
-import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useState } from 'react';
@@ -40,43 +39,40 @@ export default function MatchCard({ match }: { match: MatchProps }) {
 
   return (
     // <Link href={`/match/${match.id}`} className="block">
-      <Card className="hover:bg-muted/50 transition-colors p-2 pb-3">
+      <Card className="hover:bg-muted/50 transition-colors p-3">
         <CardContent className="p-0">
-          <div className="flex items-center justify-between text-xs">
-            <div className="font-medium">Week {match.matchday}</div>
-            <div className="text-muted-foreground">{gameDate}</div>
-          </div>
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between">
             <div className="flex flex-col items-center w-[40%]">
               <Image
                 src={`https://crests.football-data.org/${match.homeTeam.id}.png`}
                 alt={`${match.homeTeam.name} crest`}
-                width={32}
-                height={32}
-                className="object-contain"
+                width={400}
+                height={400}
+                className="w-12 h-12 object-contain"
               />
               <h5 className="text-sm font-medium text-center mt-1 line-clamp-2">{match.homeTeam.name}</h5>
             </div>
             <div className="flex flex-col items-center w-[20%]">
+              <div className="text-muted-foreground text-sm mb-2">{gameDate}</div>
               {hasScore && (
-                <div className="text-xl font-bold">
+                <div className="text-3xl font-bold">
                   {match.score.fullTime.home} - {match.score.fullTime.away}
                 </div>
               )}
+              <div className="text-sm text-center text-muted-foreground mt-2">
+                {gameTime}
+              </div>
             </div>
             <div className="flex flex-col items-center w-[40%]">
               <Image
                 src={`https://crests.football-data.org/${match.awayTeam.id}.png`}
                 alt={`${match.awayTeam.name} crest`}
-                width={32}
-                height={32}
-                className="object-contain"
+                width={400}
+                height={400}
+                className="w-12 h-12 object-contain"
               />
               <h5 className="text-sm font-medium text-center mt-1 line-clamp-2">{match.awayTeam.name}</h5>
             </div>
-          </div>
-          <div className="text-xs text-center text-muted-foreground mt-1">
-            {gameTime}
           </div>
         </CardContent>
       </Card>
